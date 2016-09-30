@@ -2,13 +2,10 @@
  * Created by r.ceuleers on 25-9-2016.
  */
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.ImageIcon;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
-import java.io.IOException;
 
 public class StartPanel extends JPanel {
     //Start menu with 3 Buttun-options
@@ -22,6 +19,8 @@ public class StartPanel extends JPanel {
 
     public StartPanel() {
         setLayout( null );
+        setSize(900, 750);
+        setLocation(300, 5);
 
         welcomeAtlete.setHorizontalTextPosition(JLabel.CENTER);
 
@@ -31,14 +30,13 @@ public class StartPanel extends JPanel {
 
         //Layout with 3 equal buttons
         welcomeAtlete.setBounds( 350, 10, 100, 70 );
-        startNewGoalButton.setBounds( 75, 100, 150, 150 );
-        progressButton.setBounds( 325, 100, 150, 150 );
-        atleteButton.setBounds( 575, 100, 150, 150 );
+        startNewGoalButton.setBounds( 105, 200, 150, 150 );
+        progressButton.setBounds( 360, 200, 150, 150 );
+        atleteButton.setBounds( 615, 200, 150, 150 );
 
-        ImageIcon icon1 = new ImageIcon("images/groupsnatch.jpg");
+        ImageIcon icon1 = new ImageIcon("C:/Users/r.ceuleers/Documents/Avans 2016-2017/Blok 1 - Aan de slag met Java/Praktijkopdracht/GetYourOlyWeight/src/images/groupsnatch.jpg");
         img = new JLabel(icon1);
         img.setBounds( 0, 0, 800, 400 );
-        img.setVisible( true );
 
         add(welcomeAtlete);
         add(startNewGoalButton);
@@ -104,7 +102,8 @@ public class StartPanel extends JPanel {
             add(cleanJerkButton);
         }
 
-        class SkillHandler implements ActionListener {
+        class SkillHandler implements
+                ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (
@@ -233,6 +232,7 @@ public class StartPanel extends JPanel {
                 atleteEmailLabel = new JLabel("Emailadres: ");
                 atleteEmailInput = new JTextField( 30 );
                 emailSearchButton = new JButton( "Search" );
+                emailSearchButton.addActionListener( new Email);
 
                 atleteEmailLabel.setBounds( 50, 50, 300, 70 );
                 atleteEmailInput.setBounds( 250, 50, 300, 70 );
