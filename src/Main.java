@@ -2,6 +2,17 @@
  * Created by r.ceuleers on 25-9-2016.
  */
 
+
+public class Main {
+    private Main() {
+    }
+    public static void main(String[] args) {
+        WeightLiftUI ui = new WeightLiftUI(new WeightLiftManager() );
+        ui.setVisible( true);
+    }
+}
+
+/*
 import javax.swing.*;
 
 public class Main extends JFrame {
@@ -29,6 +40,7 @@ public class Main extends JFrame {
 
     }
 }
+*/
 
 
 

@@ -2,16 +2,15 @@
  * Created by r.ceuleers on 26-9-2016.
  */
 
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class AtleteDAO {
     public AtleteDAO() {
 
     }
-}
-/*
-    public Atlete findAtlete (String email) {
+
+    public Atlete findAtlete(String email) {
         Atlete atlete = null;
 
         // First open a database connnection
@@ -21,28 +20,27 @@ public class AtleteDAO {
             ResultSet resultset = connection.executeSQLSelectStatement(
                     "SELECT * FROM atlete WHERE Email = " + email + ";");
 
+
             if (resultset != null) {
                 try {
-                    // The membershipnumber for a member is unique, so in case the
+                    // The email for a atlete is unique, so in case the
                     // resultset does contain data, we need its first entry.
                     if (resultset.next()) {
-                        int membershipNumberFromDb = resultset.getInt("MembershipNumber");
+                        String emailFromDb = resultset.getString("Email");
                         String firstNameFromDb = resultset.getString("FirstName");
                         String lastNameFromDb = resultset.getString("LastName");
 
-                        member = new Member(
-                                membershipNumberFromDb,
+                    /*    atlete = new Atlete(
+                                emailFromDb,
                                 firstNameFromDb,
-                                lastNameFromDb);
+                                lastNameFromDb); */
 
-                        member.setStreet(resultset.getString("Street"));
-                        member.setHouseNumber(resultset.getString("HouseNumber"));
-                        member.setCity(resultset.getString("City"));
-                        member.setFine(resultset.getDouble("Fine"));
+                        // atlete.setBackSquat(resultset.getString("Backsquat"));
+                        // atlete.setFrontSquat(resultset.getString("Frontsquat"));
                     }
                 } catch (SQLException e) {
                     System.out.println(e);
-                    member = null;
+                    atlete = null;
                 }
             }
             // else an error occurred leave 'member' to null.
@@ -51,5 +49,9 @@ public class AtleteDAO {
             // we need to close it.
             connection.closeConnection();
 
+        }
+        return atlete;
+
+    }
 }
-*/
+
