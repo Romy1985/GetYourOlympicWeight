@@ -1,3 +1,8 @@
+package getyourolyweight.businesslogic;
+
+import getyourolyweight.datastorage.AtleteDAO;
+import getyourolyweight.domain.Atlete;
+
 import java.util.HashMap;
 import java.util.Map;
 

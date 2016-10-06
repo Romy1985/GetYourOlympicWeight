@@ -1,3 +1,7 @@
+package getyourolyweight.presentation;
+
+import getyourolyweight.businesslogic.WeightLiftManager;
+import getyourolyweight.domain.Atlete;
 
 import javax.swing.*;
 
@@ -35,7 +39,7 @@ public class WeightLiftUI extends JFrame {
             frame.add(background);
             frame.repaint();
 
-            ImageIcon icon1 = new ImageIcon("C:/Users/r.ceuleers/Documents/Avans 2016-2017/Blok 1 - Aan de slag met Java/Praktijkopdracht/GetYourOlyWeight/src/images/groupsnatch.jpg");
+            ImageIcon icon1 = new ImageIcon("C:/Users/r.ceuleers/Documents/Avans 2016-2017/Blok 1 - Aan de slag met Java/Praktijkopdracht/GetYourOlyWeight/src/main.getyourolyweight.images/groupsnatch.jpg");
             img = new JLabel(icon1);
             img.setBounds( 0, 0, 900, 750 );
             background.add(img);

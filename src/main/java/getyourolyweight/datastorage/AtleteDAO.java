@@ -1,6 +1,8 @@
-/**
+package getyourolyweight.datastorage; /**
  * Created by r.ceuleers on 26-9-2016.
  */
+
+import getyourolyweight.domain.Atlete;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +20,7 @@ public class AtleteDAO {
         if (connection.openConnection()) {
             // If a connection was successfully setup, execute the SELECT statement.
             ResultSet resultset = connection.executeSQLSelectStatement(
-                    "SELECT * FROM atlete WHERE Email = " + email + ";");
+                    "SELECT * FROM atlete WHERE Email = '" + email + "';");
 
 
             if (resultset != null) {
@@ -30,10 +32,10 @@ public class AtleteDAO {
                         String firstNameFromDb = resultset.getString("FirstName");
                         String lastNameFromDb = resultset.getString("LastName");
 
-                    /*    atlete = new Atlete(
+                        atlete = new Atlete(
                                 emailFromDb,
                                 firstNameFromDb,
-                                lastNameFromDb); */
+                                lastNameFromDb);
 
                         // atlete.setBackSquat(resultset.getString("Backsquat"));
                         // atlete.setFrontSquat(resultset.getString("Frontsquat"));

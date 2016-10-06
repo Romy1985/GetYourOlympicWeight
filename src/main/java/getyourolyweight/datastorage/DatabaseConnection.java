@@ -1,3 +1,5 @@
+package getyourolyweight.datastorage;
+
 import java.sql.*;
 
 /**
