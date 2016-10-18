@@ -1,7 +1,5 @@
 package getyourolyweight.domain;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by r.ceuleers on 26-9-2016.
@@ -10,15 +8,15 @@ public class Atlete {
     private String firstName ;
     private String lastName ;
     private String email ;
+    private String scheduleID;
 
-    private final List<Schedule> schedules;
 
-    public Atlete(String email, String firstName, String lastName) {
+    public Atlete(String email, String firstName, String lastName, String scheduleID) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.scheduleID = scheduleID;
 
-        schedules = new ArrayList<>();
     }
 
 
@@ -35,30 +33,10 @@ public class Atlete {
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
 
-    public void setSchedules(Schedule[] schedules) {
-        removeAllSchedules();
+    public String getScheduleID() {return scheduleID; }
+    public void setScheduleID(String scheduleID) {this.scheduleID = scheduleID; }
 
-        for (Schedule theSchedule : schedules) {
-            addSchedule(theSchedule);
-        }
-    }
-
-    public void addSchedule(Schedule newSchedule) {
-        schedules.add(newSchedule);
-    }
-
-    public void removeAllSchedules() {
-        schedules.clear();
-    }
-
-    public boolean remove() {
-        // Result is always true. If we later on use a database from which
-        // the member needs to be removed as well, we can return a more
-        // meaningfull value.
-        boolean result = true;
-
-        return result;
     }
 
 
-}
+

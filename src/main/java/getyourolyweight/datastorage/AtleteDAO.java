@@ -3,7 +3,6 @@ package getyourolyweight.datastorage; /**
  */
 
 import getyourolyweight.domain.Atlete;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -31,11 +30,13 @@ public class AtleteDAO {
                         String emailFromDb = resultset.getString("Email");
                         String firstNameFromDb = resultset.getString("FirstName");
                         String lastNameFromDb = resultset.getString("LastName");
+                        String scheduleIDFromDb = resultset.getString("ScheduleID");
 
                         atlete = new Atlete(
                                 emailFromDb,
                                 firstNameFromDb,
-                                lastNameFromDb);
+                                lastNameFromDb,
+                                scheduleIDFromDb);
 
                         // atlete.setBackSquat(resultset.getString("Backsquat"));
                         // atlete.setFrontSquat(resultset.getString("Frontsquat"));
