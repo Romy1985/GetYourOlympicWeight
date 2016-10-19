@@ -5,10 +5,12 @@ package getyourolyweight.presentation; /**
 import getyourolyweight.businesslogic.WeightLiftManager;
 import getyourolyweight.domain.Atlete;
 import getyourolyweight.domain.Schedule;
+import javafx.scene.text.*;
 
 import javax.swing.*;
 import javax.swing.ImageIcon;
 import java.awt.*;
+import java.awt.Font;
 import java.awt.event.*;
 
 public class StartPanel extends JPanel {
@@ -169,6 +171,7 @@ public class StartPanel extends JPanel {
                 private JTextField emailInput, firstNameInput, lastNameInput, backSquatInput, snatchGoalInput, snatchDateInput;
                 private final WeightLiftManager manager;
                 private Atlete currentAtlete;
+                private Atlete newAtlete;
                 private Schedule currentSchedule;
                 private Schedule currentProgress;
 
@@ -195,6 +198,7 @@ public class StartPanel extends JPanel {
                     saveButton.addActionListener(new SaveHandler());
                     manager = weightLiftManager;
                     currentAtlete = null;
+                    newAtlete = null;
                     currentSchedule = null;
                     currentProgress = null;
 
@@ -267,7 +271,12 @@ public class StartPanel extends JPanel {
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource() == saveButton) {
                             String email = emailInput.getText();
-                            doInsertSchedule(email);
+                            String backSquat = backSquatInput.getText();
+                            int backSquatRM = Integer.parseInt(backSquat);
+                            String snatchGoalWeight = snatchGoalInput.getText();
+                            int snatchGoalWeightRM = Integer.parseInt(snatchGoalWeight);
+                            String snatchGoalDate = snatchGoalInput.getText();
+                            doInsertSchedule(email); //Dit werkt niet???
                         }
                     }
                 }
@@ -321,7 +330,7 @@ public class StartPanel extends JPanel {
                 public class ScheduleDialogPanel extends JPanel {
                     //Make schedule panel
                     private JPanel panelSchedule = new JPanel();
-                    private JLabel week1, week2, week3, week4,
+                    private JLabel week1, week2, week3, week4, skillLabel,
                             exerciseWeek1Label, roundsWeek1Label, repsWeek1Label, weightWeek1Label,
                             exerciseWeek2Label, roundsWeek2Label, repsWeek2Label, weightWeek2Label,
                             exerciseWeek3Label, roundsWeek3Label, repsWeek3Label, weightWeek3Label,
@@ -358,10 +367,12 @@ public class StartPanel extends JPanel {
 
                         setLayout(null);
 
+                        skillLabel = new JLabel("Schedule: ");
+                        skillLabel.setFont(new Font("", Font.BOLD, 18));
                         skillInput = new JTextField(20);
                         skillInput.setBackground(null);
                         skillInput.setBorder(null);
-                        skillInput.setText("Snatch schedule");
+                        skillInput.setText("Snatch");
                         week1 = new JLabel("Week 1");
                         week1.setForeground(Color.PINK);
                         week2 = new JLabel("Week 2");
@@ -443,8 +454,9 @@ public class StartPanel extends JPanel {
                         weight2Week4Input = new JTextField(20);
                         weight3Week4Input = new JTextField(20);
 
-                        //layout skill textfield
-                        skillInput.setBounds(25, 10, 100, 20 );
+                        //layout skill label + textfield
+                        skillLabel.setBounds(25, 10, 100, 20);
+                        skillInput.setBounds(125, 10, 100, 20 );
 
                         //layout schedule week 1
                         week1.setBounds(25, 30, 100, 30);
@@ -556,10 +568,10 @@ public class StartPanel extends JPanel {
                         // after choosing the snatch button in the skill menu, the skillInput is "Snatch schedule"
                         // The query now knows witch exercises are for the snatch schedule
                         /*
-                        String skill = skillInput.getText();
-                        doFindExercise(skill);
+                        String skillSnatch = skillInput.getText();
+                        doFindExerciseSnatch(skillSnatch);
 
-                        private void doFindExercise(String skill) {
+                        private void doFindExercise(String skillSnatch) {
                         currentSchedule = manager.findExercise(skill);
                         exercise1Week1Input.setText(currentSchedule.getExercise1());
                         exercise2Week1Input.setText(currentSchedule.getExercise2());
@@ -615,6 +627,7 @@ public class StartPanel extends JPanel {
 
 
                         //add labels & textfield to panel
+                        add(skillLabel);
                         add(skillInput);
                         add(week1);
                         add(week2);
@@ -712,7 +725,7 @@ public class StartPanel extends JPanel {
 
     public class ProgressDialogPanel extends JPanel {
         private JLabel emailProgressLabel, progressQuestionLabel;
-        private JTextField emailProgressInput, progressQuestionInput;
+        private JTextField emailProgressInput, progressQuestionInput, commentInput;
         private JButton progressButtonSnatch, progressButtonCleanjerk;
 
         public ProgressDialogPanel() {
@@ -725,6 +738,10 @@ public class StartPanel extends JPanel {
             progressButtonSnatch.addActionListener(new ProgressSnatchHandler());
             progressButtonCleanjerk = new JButton("Progress Clean&Jerk");
             // progressButtonCleanJerk.addActionListener(new ProgressCleanjerkHandler());
+            commentInput = new JTextField(100);
+            commentInput.setBackground(null);
+            commentInput.setBorder(null);
+            commentInput.setVisible(false);
 
             //layout Progress input information
             emailProgressLabel.setBounds(20, 50, 200, 30);
@@ -733,6 +750,7 @@ public class StartPanel extends JPanel {
             progressQuestionInput.setBounds(250, 100, 200, 30);
             progressButtonSnatch.setBounds(500, 50, 200, 30);
             progressButtonCleanjerk.setBounds(500, 100, 200, 30);
+            commentInput.setBounds(500, 150, 400, 30);
 
             add(emailProgressLabel);
             add(emailProgressInput);
@@ -740,6 +758,7 @@ public class StartPanel extends JPanel {
             add(progressQuestionInput);
             add(progressButtonSnatch);
             add(progressButtonCleanjerk);
+            add(commentInput);
         }
 
         //Hier komt ProgressSnatchHandler die van het emailadres en het week nummer de trainingsschema Snatch laat zien wat de atleet nog moet doen
@@ -749,16 +768,41 @@ public class StartPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == progressButtonSnatch) {
                     String email = emailProgressInput.getText();
+                    doFindSnatchProgress(email);
+
                     String weekNumber = progressQuestionInput.getText();
-                    doFindSnatchProgress(email, weekNumber);
+                    int resultWeek = Integer.parseInt(weekNumber);
+
+                    if (resultWeek == 1) {
+                        //schedule 2, 3, and 4 shows
+                        commentInput.setText("You did week: " + resultWeek + ". Good luck with week 2, 3 and 4");
+                        commentInput.setVisible(true);
+                    }
+                    if (resultWeek == 2) {
+                        //schedule 4 and 4 shows
+                        commentInput.setText("You did week: " + resultWeek + ". Great work, good luck with week 3 and 4");
+                        commentInput.setVisible(true);
+                    }
+                    if (resultWeek == 3) {
+                        //schedule 4 shows
+                        commentInput.setText("You did week: " + resultWeek + ". Great work, good luck with week 4");
+                        commentInput.setVisible(true);
+                    }
+                    if (resultWeek == 4) {
+                        commentInput.setText("Well done, you've finshed week: " + resultWeek + ". You're ready with this schedule");
+                        commentInput.setVisible(true);
+                    }
+
+
+
 
                 }
             }
 
         }
 
-        private void doFindSnatchProgress(String email, String weekNumber) {
-           // currentProgress = manager.findProgress(email, weekNumber);
+        private void doFindSnatchProgress(String email) {
+           // currentProgress = manager.findProgress(email);
 
 
         }
@@ -790,10 +834,11 @@ public class StartPanel extends JPanel {
     public class AtleteDialogPanel extends JPanel {
         //Open atlete panel
         private JLabel atleteEmailLabel, firstNameLabel, lastNameLabel, atleteLabel, atleteScheduleIDLabel, newAtleteLabel, newAtleteEmailLabel, newAtleteFirtsNameLabel, newAtleteLastNameLabel;
-        private JTextField atleteEmailInput, firstNameInput, lastNameInput, atleteScheduleIDInput, newEmailInput, newFisrtNameInput, newLastNameInput;
+        private JTextField atleteEmailInput, firstNameInput, lastNameInput, atleteScheduleIDInput, newEmailInput, newFisrtNameInput, newLastNameInput, newAtleteCommentInput;
         private JButton emailSearchButton, createButton;
         private final WeightLiftManager manager;
         private Atlete currentAtlete;
+        private Atlete newAtlete;
 
         public AtleteDialogPanel(WeightLiftManager weightLiftManager) {
             setLayout(null);
@@ -813,8 +858,13 @@ public class StartPanel extends JPanel {
             newFisrtNameInput = new JTextField(30);
             newAtleteLastNameLabel = new JLabel("Lastname: ");
             newLastNameInput = new JTextField(30);
+            newAtleteCommentInput = new JTextField(60);
+            newAtleteCommentInput.setBackground(null);
+            newAtleteCommentInput.setBorder(null);
             emailSearchButton = new JButton("Search");
+            emailSearchButton.addActionListener(new EmailSearchHandler());
             createButton = new JButton("Create");
+         //   createButton.addActionListener(new CreateAtleteHandler());
             manager = weightLiftManager;
             currentAtlete = null;
 
@@ -829,7 +879,7 @@ public class StartPanel extends JPanel {
             atleteScheduleIDLabel.setBounds(20, 310, 100, 50);
             atleteScheduleIDInput.setBounds(100, 310, 200, 50);
             emailSearchButton.setBounds(340, 100, 75, 50);
-            emailSearchButton.addActionListener(new EmailSearchHandler());
+
 
 
             //layout athlete new
@@ -864,6 +914,7 @@ public class StartPanel extends JPanel {
 
         }
 
+        //Handler for search athlete
         class EmailSearchHandler implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -872,11 +923,8 @@ public class StartPanel extends JPanel {
                     doFindAtlete(email);
 
                 }
-
-
             }
         }
-
 
         private void doFindAtlete(String email) {
             currentAtlete = manager.findAtlete(email);
@@ -885,6 +933,25 @@ public class StartPanel extends JPanel {
             atleteScheduleIDInput.setText(currentAtlete.getScheduleID());
             String atleteInfo = "Atleet niet gevonden";
         }
+
+        //Handler for new Athlete werkt niet??
+        /*
+        abstract class CreateAtleteHandler implements ActionListener {
+            public void actionPerfomed(ActionEvent e) {
+                if (e.getSource() == createButton) {
+                    String email = newEmailInput.getText();
+                    String firstName = newFisrtNameInput.getText();
+                    String lastName = newLastNameInput.getText();
+                    doCreateAtlete(email, firstName, lastName);
+                    newAtleteCommentInput.setText("Athlete is succesfully registered")
+                }
+            }
+        }
+
+        private void doCreateAtlete(String email, String firstName, String lastName) {
+            newAtlete = manager.createAtlete(email, firstName, lastName);
+        } */
+
     }
 }
 
