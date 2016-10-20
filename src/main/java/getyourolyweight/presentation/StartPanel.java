@@ -264,17 +264,12 @@ public class StartPanel extends JPanel {
                     public void actionPerformed(ActionEvent e) {
 
                         if (e.getSource() == saveButton) {
-                            String scheduleID = scheduleIDInput.getText();
                             String email = emailInput.getText();
                             String backSquat = backSquatInput.getText();
                             int backSquatRM = Integer.parseInt(backSquat);
                             String snatchGoalWeight = snatchGoalInput.getText();
                             int snatchGoalWeightRM = Integer.parseInt(snatchGoalWeight);
                             String snatchGoalDate = snatchDateInput.getText();
-                            JOptionPane.showMessageDialog(null, email);
-                            JOptionPane.showMessageDialog(null, backSquat);
-                            JOptionPane.showMessageDialog(null, snatchGoalWeight);
-                            JOptionPane.showMessageDialog(null, snatchGoalDate);
                             doInsertSchedule(email, backSquatRM, snatchGoalWeightRM, snatchGoalDate);
 
                         }
@@ -858,10 +853,11 @@ public class StartPanel extends JPanel {
             newAtleteCommentInput = new JTextField(60);
             newAtleteCommentInput.setBackground(null);
             newAtleteCommentInput.setBorder(null);
+            newAtleteCommentInput.setVisible(false);
             emailSearchButton = new JButton("Search");
             emailSearchButton.addActionListener(new EmailSearchHandler());
             createButton = new JButton("Create");
-         //   createButton.addActionListener(new CreateAtleteHandler());
+            createButton.addActionListener(new CreateAtleteHandler());
             manager = weightLiftManager;
             currentAtlete = null;
 
@@ -888,6 +884,7 @@ public class StartPanel extends JPanel {
             newAtleteLastNameLabel.setBounds(470, 240, 100, 50);
             newLastNameInput.setBounds(550, 240, 200, 50);
             createButton.setBounds(790, 100, 75, 50);
+            newAtleteCommentInput.setBounds(550, 310, 200, 50);
 
 
             add(atleteLabel);
@@ -908,7 +905,7 @@ public class StartPanel extends JPanel {
             add(newFisrtNameInput);
             add(newAtleteLastNameLabel);
             add(newLastNameInput);
-
+            add(newAtleteCommentInput);
         }
 
         //Handler for search athlete
@@ -931,23 +928,23 @@ public class StartPanel extends JPanel {
             String atleteInfo = "Atleet niet gevonden";
         }
 
-        //Handler for new Athlete 
-        /*
-        abstract class CreateAtleteHandler implements ActionListener {
-            public void actionPerfomed(ActionEvent e) {
+        //Handler for new Athlete
+        class CreateAtleteHandler implements ActionListener {
+            public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == createButton) {
                     String email = newEmailInput.getText();
                     String firstName = newFisrtNameInput.getText();
                     String lastName = newLastNameInput.getText();
                     doCreateAtlete(email, firstName, lastName);
-                    newAtleteCommentInput.setText("Athlete is succesfully registered")
+                    newAtleteCommentInput.setText("Athlete is succesfully registered");
+                    newAtleteCommentInput.setVisible(true);
                 }
             }
         }
 
-        private void doCreateAtlete(String email, String firstName, String lastName) {
-            newAtlete = manager.createAtlete(email, firstName, lastName);
-        } */
+        public void doCreateAtlete(String email, String firstName, String lastName) {
+            manager.createAtlete(email, firstName, lastName);
+        }
 
     }
 }

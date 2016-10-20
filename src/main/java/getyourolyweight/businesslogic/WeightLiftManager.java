@@ -38,42 +38,20 @@ public class WeightLiftManager {
              return atlete;
     }
 
-    public Atlete createAtlete(String email, String firstName, String lastName) {
-        Atlete atlete = atletes.get(email);
+    public void createAtlete(String email, String firstName, String lastName) {
+      //  Atlete atlete = atletes.get(email);
 
-        if (atlete == null ) {
-            AtleteDAO atleteDAO = new AtleteDAO();
-            atlete = atleteDAO.createAtlete(email, firstName, lastName);
-           // atletes.put(email, firstName, lastName); Dit werkt niet??
-        }
-        return atlete;
+        AtleteDAO atleteDAO = new AtleteDAO();
+        atleteDAO.createAtlete(email, firstName, lastName);
+
     }
 
-
-    /*
-        public Atlete findAtlete(String email) {
-        Atlete atlete = atletes.get(email);
-
-        if (atlete == null ) {
-            AtleteDAO atleteDAO = new AtleteDAO();
-            atlete = atleteDAO.findAtlete(email);
-            atletes.put(email, atlete);
-            }
-             return atlete;
-    }
-     */
     public void insertSchedule(String email, int backSquat, int snatchGoalWeight, String snatchGoalDate) {
-        Schedule schedule = schedules.get(email);
+      //  Schedule schedule = schedules.get(email);
 
         ScheduleDAO scheduleDAO = new ScheduleDAO();
         scheduleDAO.insertSchedule(email, backSquat, snatchGoalWeight, snatchGoalDate);
     }
-           // scheduleDAO = scheduleDAO.insertSchedule(scheduleID, email, backSquat, snatchGoalWeight, snatchGoalDate);
-        //  schedule = scheduleDAO.insertSchedule(scheduleID, email, backSquat, snatchGoalWeight, snatchGoalDate, insertSchedule);
-
-        //}
-       // return schedule;
- //   }
 
     public Schedule makeSchedule(String email, int backSquat, int snatchGoalWeight) {
         Schedule schedule = schedules.get(email);

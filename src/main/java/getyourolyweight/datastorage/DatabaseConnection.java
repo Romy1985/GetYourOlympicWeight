@@ -113,6 +113,7 @@ public class DatabaseConnection {
         // First, check whether a some query was passed and the connection with
         // the database.
         if (query != null && connectionIsOpen()) {
+            System.out.println("hallo");
             // Then, if succeeded, execute the query.
             try {
                 statement.executeUpdate(query);
