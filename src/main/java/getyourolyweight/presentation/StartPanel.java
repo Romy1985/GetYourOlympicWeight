@@ -168,7 +168,7 @@ public class StartPanel extends JPanel {
                 //Open snatch panel
                 private JLabel emailLabel, firstNameLabel, lastNameLabel, backSquatLabel, snatchGoalLabel, snatchDateLabel;
                 private JButton emailSearchButton, saveButton, snatchScheduleButton;
-                private JTextField emailInput, firstNameInput, lastNameInput, backSquatInput, snatchGoalInput, snatchDateInput;
+                private JTextField emailInput, firstNameInput, lastNameInput, backSquatInput, snatchGoalInput, snatchDateInput, scheduleIDInput;
                 private final WeightLiftManager manager;
                 private Atlete currentAtlete;
                 private Atlete newAtlete;
@@ -177,6 +177,9 @@ public class StartPanel extends JPanel {
 
                 public SnatchDialogPanel(WeightLiftManager weightLiftManager) {
                     setLayout(null);
+                    scheduleIDInput = new JTextField(10);
+                    scheduleIDInput.setText("");
+                    scheduleIDInput.setVisible(false);
                     emailLabel = new JLabel("Emailaddress: ");
                     firstNameLabel = new JLabel("Firstname: ");
                     lastNameLabel = new JLabel("Lastname: ");
@@ -218,6 +221,7 @@ public class StartPanel extends JPanel {
                     snatchScheduleButton.setBounds(600, 400, 100, 70);
                     saveButton.setBounds(600, 400, 100, 70);
 
+                    add(scheduleIDInput);
                     add(emailLabel);
                     add(emailInput);
                     add(emailSearchButton);
@@ -262,6 +266,7 @@ public class StartPanel extends JPanel {
 
                 //Save Hanlder for INSERT query to the Schedule table
                 class SaveHandler implements ActionListener {
+
                     /**
                      * Save the information to the database
                      * After using the Save button turns into the Show Schedule button
@@ -269,20 +274,28 @@ public class StartPanel extends JPanel {
 
                     @Override
                     public void actionPerformed(ActionEvent e) {
+
                         if (e.getSource() == saveButton) {
+                            String scheduleID = scheduleIDInput.getText();
                             String email = emailInput.getText();
                             String backSquat = backSquatInput.getText();
                             int backSquatRM = Integer.parseInt(backSquat);
                             String snatchGoalWeight = snatchGoalInput.getText();
                             int snatchGoalWeightRM = Integer.parseInt(snatchGoalWeight);
-                            String snatchGoalDate = snatchGoalInput.getText();
-                            doInsertSchedule(email); //Dit werkt niet???
+                            String snatchGoalDate = snatchDateInput.getText();
+                            JOptionPane.showMessageDialog(null, email);
+                            JOptionPane.showMessageDialog(null, backSquat);
+                            JOptionPane.showMessageDialog(null, snatchGoalWeight);
+                            JOptionPane.showMessageDialog(null, snatchGoalDate);
+                            doInsertSchedule(email, backSquatRM, snatchGoalWeightRM, snatchGoalDate);
+
                         }
+
                     }
                 }
 
-                private void doInsertSchedule(String email) {
-                  //  currentSchedule = manager.insertSchedule(email);
+                public void doInsertSchedule(String email, int backSquat, int snatchGoalWeight, String snatchGoalDate) {
+                    manager.insertSchedule(email, backSquat, snatchGoalWeight, snatchGoalDate);
                     saveButton.setVisible(false);
                     snatchScheduleButton.setVisible(true);
 
@@ -308,12 +321,8 @@ public class StartPanel extends JPanel {
                             scheduleDialog.setVisible(true);
                             //Get exercises
                             //Get values of backsquat and goalweight
-
                         }
-
-
                     }
-
                 }
 
                 public class ScheduleDialog extends JDialog {

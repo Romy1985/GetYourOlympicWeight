@@ -8,6 +8,7 @@ import getyourolyweight.domain.Schedule;
 import getyourolyweight.domain.Skill;
 
 
+import javax.swing.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,9 +16,9 @@ import java.util.Map;
  * Created by r.ceuleers on 29-9-2016.
  */
 public class WeightLiftManager {
-    private final Map<String, Atlete> atletes;
-    private final Map<String, Schedule> schedules;
-    private final Map<String, Skill> skills;
+    private Map<String, Atlete> atletes;
+    private Map<String, Schedule> schedules;
+    private Map<String, Skill> skills;
 
 
     public WeightLiftManager() {
@@ -48,16 +49,31 @@ public class WeightLiftManager {
         return atlete;
     }
 
-    public Schedule insertSchedule(String scheduleID, String email, int backSquat, int snatchGoalWeight, String snatchGoalDate) {
+
+    /*
+        public Atlete findAtlete(String email) {
+        Atlete atlete = atletes.get(email);
+
+        if (atlete == null ) {
+            AtleteDAO atleteDAO = new AtleteDAO();
+            atlete = atleteDAO.findAtlete(email);
+            atletes.put(email, atlete);
+            }
+             return atlete;
+    }
+     */
+    public void insertSchedule(String email, int backSquat, int snatchGoalWeight, String snatchGoalDate) {
         Schedule schedule = schedules.get(email);
 
-        if (schedule == null) {
-            ScheduleDAO scheduleDAO = new ScheduleDAO();
-            //schedule = scheduleDAO.insertSchedule(scheduleID, email, backSquat, snatchGoalWeight, snatchGoalDate);
-            schedules.put(email, schedule);
-        }
-        return schedule;
+        ScheduleDAO scheduleDAO = new ScheduleDAO();
+        scheduleDAO.insertSchedule(email, backSquat, snatchGoalWeight, snatchGoalDate);
     }
+           // scheduleDAO = scheduleDAO.insertSchedule(scheduleID, email, backSquat, snatchGoalWeight, snatchGoalDate);
+        //  schedule = scheduleDAO.insertSchedule(scheduleID, email, backSquat, snatchGoalWeight, snatchGoalDate, insertSchedule);
+
+        //}
+       // return schedule;
+ //   }
 
     public Schedule makeSchedule(String email, int backSquat, int snatchGoalWeight) {
         Schedule schedule = schedules.get(email);

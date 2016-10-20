@@ -17,22 +17,21 @@ public class ScheduleDAO {
     }
 
 
-    public boolean insertSchedule(String scheduleID, String email, int backSquat, int snatchGoalWeight, String snatchGoalDate, Schedule insertSchedule) {
+    public boolean insertSchedule(String email, int backSquat, int snatchGoalWeight, String snatchGoalDate) {
         boolean result = false;
 
-        if (insertSchedule != null) {
-            // First open the database connection.
+                 // First open the database connection.
             DatabaseConnection connection = new DatabaseConnection();
             if (connection.openConnection()) {
                 // Execute the insert statement using the SnatchDialogPanel information
                 result = connection.executeSqlDmlStatement(
-                        "INSERT INTO `schedulesnatch` VALUES('" + "" + "', '" + email + "', '" + backSquat + "', '" + snatchGoalWeight + "', '" + snatchGoalDate + "');");
+                        "INSERT INTO `schedulesnatch`(Email, BackSquat, SnatchGoalWeight, SnatchGoalDate) VALUES('" + email + "', '" + backSquat + "', '" + snatchGoalWeight + "', '" + snatchGoalDate + "');");
 
                 // Finished with the connection, so close it.
                 connection.closeConnection();
             }
             // else an error occurred leave 'member' to null.
-        }
+
 
         return result;
     }
