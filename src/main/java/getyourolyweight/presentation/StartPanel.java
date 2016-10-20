@@ -19,10 +19,6 @@ public class StartPanel extends JPanel {
     private JButton startNewGoalButton = new JButton("Start new goal");
     private JButton progressButton = new JButton("Progress");
     private JButton atleteButton = new JButton("Athlete");
-    // Panel for image
-    private JPanel panel = new JPanel();
-    private JLabel img;
-
 
     public StartPanel() {
         setLayout(null);
@@ -46,18 +42,10 @@ public class StartPanel extends JPanel {
         atleteButton.setBounds(105, 200, 150, 150);
 
 
-        //background image (it doesn't work)
-        ImageIcon icon1 = new ImageIcon("C:/Users/r.ceuleers/Documents/Avans 2016-2017/Blok 1 - Aan de slag met Java/Praktijkopdracht/GetYourOlyWeight/src/main/resources/images/groupsnatch.jpg");
-        img = new JLabel(icon1);
-        img.setBounds(0, 0, 900, 750);
-        img.setVisible(true);
-
         add(welcomeAtlete);
         add(atleteButton);
         add(startNewGoalButton);
         add(progressButton);
-        panel.add(img);
-        panel.repaint();
 
     }
 
@@ -943,7 +931,7 @@ public class StartPanel extends JPanel {
             String atleteInfo = "Atleet niet gevonden";
         }
 
-        //Handler for new Athlete werkt niet??
+        //Handler for new Athlete 
         /*
         abstract class CreateAtleteHandler implements ActionListener {
             public void actionPerfomed(ActionEvent e) {
