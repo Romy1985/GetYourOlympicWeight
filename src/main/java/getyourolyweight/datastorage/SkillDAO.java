@@ -24,9 +24,10 @@ public class SkillDAO {
             // If a connection was successfully setup, execute the SELECT statement.
             ResultSet resultset = connection.executeSQLSelectStatement(
                     "SELECT exercise.ExerciseName FROM skill INNER JOIN exercise ON skill.SkillID = exercise.SkillID WHERE skill.SkillName = '" + skillSnatch + "' ;");
+            System.out.println("SELECT exercise.ExerciseName FROM skill INNER JOIN exercise ON skill.SkillID = exercise.SkillID WHERE skill.SkillName = '" + skillSnatch + "' ;");
 
 
-            if (resultset != null) {
+          /*  if (resultset != null) {
                 try {
                     // The skillSnatch for the exercises is unique, so in case the
                     // resultset does contain data, we need its first entry.
@@ -37,18 +38,18 @@ public class SkillDAO {
                         String skillNameFromDb = resultset.getString("SkillName");
 
                         //Dit werkt niet???
-                        /*  skill = new Skill(
+                          skill = new Skill(
                                 exerciseIDFromDb,
                                 exerciseNameFromDb,
                                 skillIDFromDb,
-                                skillNameFromDb); */
+                                skillNameFromDb);
 
                     }
                 } catch (SQLException e) {
                     System.out.println(e);
                     skill = null;
                 }
-            }
+            } */
             // else an error occurred leave 'skill' to null.
 
             // We had a database connection opened. Since we're finished,

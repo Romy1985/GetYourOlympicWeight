@@ -11,8 +11,6 @@ import javax.swing.*;
 
 
 public class WeightLiftUI extends JFrame {
-    private final WeightLiftManager manager;
-    private Atlete currentAtlete;
     private JPanel panel = new JPanel();
     private JLabel img;
         public WeightLiftUI(WeightLiftManager weightLiftManager) {
@@ -23,9 +21,7 @@ public class WeightLiftUI extends JFrame {
             frame.setContentPane(new StartPanel());
             frame.setTitle("Get Your Olympic Weight");
 
-            manager = weightLiftManager;
-            currentAtlete = null;
-
+            //background image
             ImageIcon icon1 = new ImageIcon("C:/Users/r.ceuleers/Documents/Avans 2016-2017/Blok 1 - Aan de slag met Java/Praktijkopdracht/GetYourOlyWeight/src/main/resources/images/groupsnatch.jpg");
             img = new JLabel(icon1);
             img.setBounds(0, 0, 900, 750);

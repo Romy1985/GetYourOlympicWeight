@@ -2,16 +2,34 @@ package getyourolyweight.presentation; /**
  * Created by r.ceuleers on 25-9-2016.
  */
 
+import com.sun.deploy.uitoolkit.ToolkitStore;
+import com.sun.javaws.exceptions.ExitException;
 import getyourolyweight.businesslogic.WeightLiftManager;
 import getyourolyweight.domain.Atlete;
 import getyourolyweight.domain.Schedule;
-import javafx.scene.text.*;
+import getyourolyweight.domain.Skill;
 
 import javax.swing.*;
 import javax.swing.ImageIcon;
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
+import javax.swing.plaf.basic.BasicSplitPaneUI;
 import java.awt.*;
 import java.awt.Font;
 import java.awt.event.*;
+
+import static com.sun.deploy.uitoolkit.ToolkitStore.dispose;
+
+/**
+ * Startpanel contains all the panels and dialogs of the GUI
+ * Startpanel with 3 buttons. Every buttons opens a new Dialog
+ * Athlete button opens the Atlete dialog for search athletes en create athletes
+ * Progress button open the Progress dialog for opening the schedules that the athlete still have to do
+ * Start new goal button contains 2 buttons for 2 menu's
+ * Menu 1 for the skill snatch
+ * Menu 2 for the skill clean & jerk
+ * Menu snatch contains a form. The values of the form are saved into the schedulesnatch db and show a schedule in a new panel
+ * Menu clean & jerk contains a form. The values of the form are saved into the schedulecleanjerk db ans show a schedule in a new panel
+ */
 
 public class StartPanel extends JPanel {
     //Start menu with 3 Buttun-options
@@ -26,9 +44,13 @@ public class StartPanel extends JPanel {
 
         welcomeAtlete.setHorizontalTextPosition(JLabel.CENTER);
         welcomeAtlete.setFont(new Font("Arial", Font.BOLD, 18));
+        welcomeAtlete.setForeground(Color.WHITE);
         startNewGoalButton.setFont(new Font("Arial", Font.BOLD, 14));
+        startNewGoalButton.setBorder(null);
         progressButton.setFont(new Font("Arial", Font.BOLD, 14));
+        progressButton.setBorder(null);
         atleteButton.setFont(new Font("Arial", Font.BOLD, 14));
+        atleteButton.setBorder(null);
 
 
         startNewGoalButton.addActionListener(new NewFrameHandler());
@@ -36,7 +58,7 @@ public class StartPanel extends JPanel {
         atleteButton.addActionListener(new NewFrameHandler());
 
         //Layout with 3 equal buttons
-        welcomeAtlete.setBounds(420, 10, 100, 70);
+        welcomeAtlete.setBounds(400, 10, 100, 70);
         startNewGoalButton.setBounds(615, 200, 150, 150);
         progressButton.setBounds(360, 200, 150, 150);
         atleteButton.setBounds(105, 200, 150, 150);
@@ -58,7 +80,7 @@ public class StartPanel extends JPanel {
                 Dialog skillDialog = new SkillDialog();
                 skillDialog.setVisible(true);
             } else if (e.getSource() == progressButton) {
-                //Open new Progress Dialog
+                //Open new main.getyourolyweight.domain.Progress Dialog
                 Dialog progressDialog = new ProgressDialog();
                 progressDialog.setVisible(true);
             } else if (e.getSource() == atleteButton) {
@@ -76,43 +98,89 @@ public class StartPanel extends JPanel {
      * When you choose the cleanJerkButton the CleanJerkDialog opens
      */
     public class SkillDialog extends JDialog {
+        private JPanel panelSkill = new JPanel();
+        private JLabel img = new JLabel();
         public SkillDialog() {
-            //choose your skill dialog
+            //settings skill dialog
+            JDialog skillDialog = new JDialog();
             setTitle("Skill menu");
-            setSize(800, 400);
+            setSize(900, 750);
             setLocationRelativeTo(null);
+            setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
             setContentPane(new SkillDialogPanel());
             setModal(true);
+
+            //background image - werkt niet??
+            ImageIcon icon1 = new ImageIcon("C:/Users/r.ceuleers/Documents/Avans 2016-2017/Blok 1 - Aan de slag met Java/Praktijkopdracht/GetYourOlyWeight/src/main/resources/images/warmupsnatch.jpg");
+            img = new JLabel(icon1);
+            img.setBounds(0, 0, 900, 750);
+            img.setVisible(true);
+
+            panelSkill.setBounds(0, 0, 900, 750);
+            panelSkill.add(img);
+            panelSkill.setVisible(true);
+            panelSkill.repaint();
+
+            skillDialog.add(panelSkill);
+            skillDialog.setVisible(true);
+            skillDialog.repaint();
+
         }
     }
 
     public class SkillDialogPanel extends JPanel {
         // choose your skill panel
-        private JPanel panelSkill = new JPanel();
         private JLabel skillLabel;
-        private JButton snatchButton, cleanJerkButton;
+        private JButton snatchButton, cleanJerkButton, homeButton, backButton;
 
         public SkillDialogPanel() {
-            //Skill panel with 2 JButtons
+            //Skill panel with 2 new menu JButtons and 2 navigate JButtons
             setLayout(null);
-            skillLabel = new JLabel("Choose skill");
+            skillLabel = new JLabel("Choose your skill");
 
             snatchButton = new JButton("Snatch");
             snatchButton.addActionListener(new SkillHandler());
-
             cleanJerkButton = new JButton("Clean & Jerk");
             cleanJerkButton.addActionListener(new SkillHandler());
+            homeButton = new JButton("Home");
+            homeButton.addActionListener(new HomeHandler());
+            backButton = new JButton("<<");
+            backButton.addActionListener(new BackHandler());
 
             //layout 2 equal buttons
-            skillLabel.setBounds(350, 10, 100, 70);
-            snatchButton.setBounds(150, 100, 200, 200);
-            cleanJerkButton.setBounds(450, 100, 200, 200);
+            skillLabel.setBounds(400, 10, 100, 70);
+            snatchButton.setBounds(150, 175, 200, 200);
+            cleanJerkButton.setBounds(550, 175, 200, 200);
+            backButton.setBounds(50, 650, 75, 30);
+            homeButton.setBounds(130, 650, 75, 30);
 
             add(skillLabel);
             add(snatchButton);
             add(cleanJerkButton);
+            add(homeButton);
+            add(backButton);
 
         }
+
+        //backHandler for closing the SkillDialog to previous panel -- uitzoeken hoe
+        class BackHandler implements ActionListener {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    dispose();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+            }
+        }
+
+
+        //homeHandler for closing the SkillDialog StartPanel -- uitzoeken hoe
+        class HomeHandler implements ActionListener {
+            public void actionPerformed(ActionEvent e){
+
+            }
+        }
+
 
         //Skill Handler for opening the Snatch menu or Clean & Jerk menu
         class SkillHandler implements
@@ -133,6 +201,7 @@ public class StartPanel extends JPanel {
             }
 
             /**
+             * -----------------------------------SKILL SNATCH-----------------------------------------------
              * Snatch input form
              * Athlete information from database
              * Extra information: Goal weigt, Goal date and 1RM backsquat
@@ -155,11 +224,11 @@ public class StartPanel extends JPanel {
             public class SnatchDialogPanel extends JPanel {
                 //Open snatch panel
                 private JLabel emailLabel, firstNameLabel, lastNameLabel, backSquatLabel, snatchGoalLabel, snatchDateLabel;
-                private JButton emailSearchButton, saveButton, snatchScheduleButton;
-                private JTextField emailInput, firstNameInput, lastNameInput, backSquatInput, snatchGoalInput, snatchDateInput, scheduleIDInput;
+                private JButton emailSearchButton, saveButton, snatchScheduleButton, homeButton, backButton;
+                private JTextField emailInput, firstNameInput, lastNameInput, backSquatInput, snatchGoalInput, snatchDateInput, scheduleIDInput, skillInput;
                 private final WeightLiftManager manager;
                 private Atlete currentAtlete;
-                private Atlete newAtlete;
+                private Skill currentSkill;
                 private Schedule currentSchedule;
                 private Schedule currentProgress;
 
@@ -180,6 +249,9 @@ public class StartPanel extends JPanel {
                     backSquatInput = new JTextField(10);
                     snatchGoalInput = new JTextField(10);
                     snatchDateInput = new JTextField(10);
+                    skillInput = new JTextField(20);
+                    skillInput.setText("Snatch");
+                    skillInput.setVisible(false);
                     emailSearchButton = new JButton("Search");
                     emailSearchButton.addActionListener(new EmailSearchHandler());
                     snatchScheduleButton = new JButton("Schedule");
@@ -187,12 +259,16 @@ public class StartPanel extends JPanel {
                     snatchScheduleButton.setVisible(false);
                     saveButton = new JButton("Save");
                     saveButton.addActionListener(new SaveHandler());
+                    backButton = new JButton("<<");
+                    backButton.addActionListener(new BackHandler());
+                    homeButton = new JButton("Home");
+                    homeButton.addActionListener(new HomeHandler());
                     manager = weightLiftManager;
                     currentAtlete = null;
-                    newAtlete = null;
                     currentSchedule = null;
                     currentProgress = null;
 
+                    scheduleIDInput.setBounds(0, 0, 0, 0);
                     emailLabel.setBounds(50, 50, 300, 70);
                     emailInput.setBounds(250, 50, 300, 70);
                     emailSearchButton.setBounds(600, 50, 100, 70);
@@ -206,6 +282,7 @@ public class StartPanel extends JPanel {
                     snatchGoalInput.setBounds(250, 330, 300, 70);
                     snatchDateLabel.setBounds(50, 400, 300, 70);
                     snatchDateInput.setBounds(250, 400, 300, 70);
+                    skillInput.setBounds(0, 0, 0, 0);
                     snatchScheduleButton.setBounds(600, 400, 100, 70);
                     saveButton.setBounds(600, 400, 100, 70);
 
@@ -223,9 +300,12 @@ public class StartPanel extends JPanel {
                     add(snatchGoalInput);
                     add(snatchDateLabel);
                     add(snatchDateInput);
+                    add(skillInput);
                     add(snatchScheduleButton);
                     add(saveButton);
                 }
+
+                //-------------HANDLERS SNATCHDIALOGPANEL------------------------------
 
                 //Emailsearch Handler for SELECT query in the athlete table
                 class EmailSearchHandler implements ActionListener {
@@ -257,6 +337,7 @@ public class StartPanel extends JPanel {
 
                     /**
                      * Save the information to the database
+                     * INSERT values into schedulesnatch
                      * After using the Save button turns into the Show Schedule button
                      */
 
@@ -285,13 +366,14 @@ public class StartPanel extends JPanel {
 
                 }
 
-                //Schedule Handler for SELECT query on the schedule table
-                //The SnatchGoalWeight and backSquat is needed for the math for the schedule
+                //Schedule Handler for making the schdeule
+                // The values of the JTextfields SnatchGoalWeight and backSquat from SnatchDialogPanel are needed for the math for the schedule
                 class ScheduleHandler implements ActionListener {
                     /**
                      * Open schedule menu
-                     * Insert the values of snatchgoalweight, backsquat and date into table schedulesnatch
-                     * Get the exercises from table exercise
+                     * Get the exercises from table exercise with a SELECT query form the skill and exercise table
+                     * where the skillName is Snatch
+                     * @return exercises for the skill Snatch
                      * Count the values of backsquat and goalweight
                      * Make a count and fill the textfields of the schedule per week
                      */
@@ -303,10 +385,26 @@ public class StartPanel extends JPanel {
                             Dialog scheduleDialog = new ScheduleDialog();
                             scheduleDialog.setVisible(true);
                             //Get exercises
-                            //Get values of backsquat and goalweight
+                            String skillSnatch = skillInput.getText();
+                            doFindExerciseSnatch(skillSnatch);
                         }
                     }
                 }
+/////Hier ben ik gebleven///////////////
+                public void doFindExerciseSnatch(String skillSnatch) {
+                currentSkill = manager.findExerciseSnatch(skillSnatch);
+                    JOptionPane.showMessageDialog(null, skillSnatch);
+                }
+
+
+                /*
+                 private void doFindAtlete(String email) {
+                    currentAtlete = manager.findAtlete(email);
+                    firstNameInput.setText(currentAtlete.getFirtName());
+                    lastNameInput.setText(currentAtlete.getLastName());
+                    String atleteInfo = "Atleet niet gevonden";
+                }
+                 */
 
                 public class ScheduleDialog extends JDialog {
                     //Make schedule Dialog
@@ -344,11 +442,12 @@ public class StartPanel extends JPanel {
                             weight1Week2Input, weight2Week2Input, weight3Week2Input,
                             weight1Week3Input, weight2Week3Input, weight3Week3Input,
                             weight1Week4Input, weight2Week4Input, weight3Week4Input;
-                    private int reps, rounds, week1Count, week2Count, week3Count, week4Count;
+                    private int reps, reps4, rounds, week1Count, week2Count, week3Count, week4Count;
 
                     public ScheduleDialogPanel() {
                         //fixed values for the reps and rounds
                         reps = 5;
+                        reps4 = 1;
                         rounds = 5;
 
                         //fixed percentages for the counts per week
@@ -359,12 +458,12 @@ public class StartPanel extends JPanel {
 
                         setLayout(null);
 
-                        skillLabel = new JLabel("Schedule: ");
-                        skillLabel.setFont(new Font("", Font.BOLD, 18));
-                        skillInput = new JTextField(20);
-                        skillInput.setBackground(null);
-                        skillInput.setBorder(null);
-                        skillInput.setText("Snatch");
+                       // skillLabel = new JLabel("Schedule: ");
+                       // skillLabel.setFont(new Font("", Font.BOLD, 18));
+                       // skillInput = new JTextField(20);
+                       // skillInput.setBackground(null);
+                       // skillInput.setBorder(null);
+                       // skillInput.setText("Snatch");
                         week1 = new JLabel("Week 1");
                         week1.setForeground(Color.PINK);
                         week2 = new JLabel("Week 2");
@@ -447,8 +546,8 @@ public class StartPanel extends JPanel {
                         weight3Week4Input = new JTextField(20);
 
                         //layout skill label + textfield
-                        skillLabel.setBounds(25, 10, 100, 20);
-                        skillInput.setBounds(125, 10, 100, 20 );
+                        //skillLabel.setBounds(25, 10, 100, 20);
+                        //skillInput.setBounds(125, 10, 100, 20 );
 
                         //layout schedule week 1
                         week1.setBounds(25, 30, 100, 30);
@@ -547,11 +646,11 @@ public class StartPanel extends JPanel {
                         rounds2Week3Input.setText("" + rounds);
                         reps3Week3Input.setText("" + reps);
                         rounds3Week3Input.setText("" + rounds);
-                        reps1Week4Input.setText("" + reps);
+                        reps1Week4Input.setText("" + reps4);
                         rounds1Week4Input.setText("" + rounds);
-                        reps2Week4Input.setText("" + reps);
+                        reps2Week4Input.setText("" + reps4);
                         rounds2Week4Input.setText("" + rounds);
-                        reps3Week4Input.setText("" + reps);
+                        reps3Week4Input.setText("" + reps4);
                         rounds3Week4Input.setText("" + rounds);
 
                         //Step 2:
@@ -559,28 +658,27 @@ public class StartPanel extends JPanel {
                         //Exercises are selected by textfield skillInput,
                         // after choosing the snatch button in the skill menu, the skillInput is "Snatch schedule"
                         // The query now knows witch exercises are for the snatch schedule
-                        /*
-                        String skillSnatch = skillInput.getText();
-                        doFindExerciseSnatch(skillSnatch);
 
-                        private void doFindExercise(String skillSnatch) {
-                        currentSchedule = manager.findExercise(skill);
-                        exercise1Week1Input.setText(currentSchedule.getExercise1());
-                        exercise2Week1Input.setText(currentSchedule.getExercise2());
-                        exercise3Week1Input.setText(currentSchedule.getExercise3());
-                        exercise1Week2Input.setText(currentSchedule.getExercise1());
-                        exercise2Week2Input.setText(currentSchedule.getExercise2());
-                        exercise3Week2Input.setText(currentSchedule.getExercise3());
-                        exercise1Week3Input.setText(currentSchedule.getExercise1());
-                        exercise2Week3Input.setText(currentSchedule.getExercise2());
-                        exercise3Week3Input.setText(currentSchedule.getExercise3());
-                        exercise1Week4Input.setText(currentSchedule.getExercise1());
-                        exercise2Week4Input.setText(currentSchedule.getExercise2());
-                        exercise3Week4Input.setText(currentSchedule.getExercise3());
+                       // String skillSnatch = skillInput.getText();
+                       // doFindExerciseSnatch(skillSnatch);
 
-                        }
+                       // private void doFindExerciseSnatch(String skillSnatch) {
+                       // currentSkill = manager.findExerciseSnatch(skillSnatch);
+                        //exercise1Week1Input.setText(currentSchedule.getExercise1());
+                        //exercise2Week1Input.setText(currentSchedule.getExercise2());
+                        //exercise3Week1Input.setText(currentSchedule.getExercise3());
+                        //exercise1Week2Input.setText(currentSchedule.getExercise1());
+                        //exercise2Week2Input.setText(currentSchedule.getExercise2());
+                        //exercise3Week2Input.setText(currentSchedule.getExercise3());
+                        //exercise1Week3Input.setText(currentSchedule.getExercise1());
+                        //exercise2Week3Input.setText(currentSchedule.getExercise2());
+                        //exercise3Week3Input.setText(currentSchedule.getExercise3());
+                        //exercise1Week4Input.setText(currentSchedule.getExercise1());
+                        //exercise2Week4Input.setText(currentSchedule.getExercise2());
+                        //exercise3Week4Input.setText(currentSchedule.getExercise3());
 
-                         */
+
+
 
                         //Step 3:
                         //Counts for weight of the exercises

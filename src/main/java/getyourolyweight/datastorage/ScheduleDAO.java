@@ -96,7 +96,7 @@ public class ScheduleDAO {
         if (connection.openConnection()) {
             // If a connection was successfully setup, execute the SELECT statement.
             ResultSet resultset = connection.executeSQLSelectStatement(
-                    "SELECT BackSquat, SnatchGoalWeight FROM schedulesnatch WHERE Email = '" + email + "' AND SnatchGoalDate = (SELECT min(SnatchGoalDate) FROM schedulesnatch WHERE Email = '" + email + "') ;");
+                    "SELECT BackSquat, SnatchGoalWeight FROM schedulesnatch WHERE Email = '" + email + "' AND SnatchGoalDate = (SELECT max(SnatchGoalDate) FROM schedulesnatch WHERE Email = '" + email + "') ;");
 
 
             if (resultset != null) {

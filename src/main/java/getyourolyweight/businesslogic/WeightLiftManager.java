@@ -39,16 +39,12 @@ public class WeightLiftManager {
     }
 
     public void createAtlete(String email, String firstName, String lastName) {
-      //  Atlete atlete = atletes.get(email);
-
         AtleteDAO atleteDAO = new AtleteDAO();
         atleteDAO.createAtlete(email, firstName, lastName);
 
     }
 
     public void insertSchedule(String email, int backSquat, int snatchGoalWeight, String snatchGoalDate) {
-      //  Schedule schedule = schedules.get(email);
-
         ScheduleDAO scheduleDAO = new ScheduleDAO();
         scheduleDAO.insertSchedule(email, backSquat, snatchGoalWeight, snatchGoalDate);
     }
@@ -66,6 +62,7 @@ public class WeightLiftManager {
 
     public Skill findExerciseSnatch(String skillSnatch) {
         Skill skill = skills.get(skillSnatch);
+        JOptionPane.showMessageDialog(null, skillSnatch);
 
         if (skill == null ) {
             SkillDAO skillDAO = new SkillDAO();

@@ -57,26 +57,6 @@ public class AtleteDAO {
 
     }
 
-    /*
-       public boolean insertSchedule(String email, int backSquat, int snatchGoalWeight, String snatchGoalDate) {
-        boolean result = false;
-
-                 // First open the database connection.
-            DatabaseConnection connection = new DatabaseConnection();
-            if (connection.openConnection()) {
-                // Execute the insert statement using the SnatchDialogPanel information
-                result = connection.executeSqlDmlStatement(
-                        "INSERT INTO `schedulesnatch`(Email, BackSquat, SnatchGoalWeight, SnatchGoalDate) VALUES('" + email + "', '" + backSquat + "', '" + snatchGoalWeight + "', '" + snatchGoalDate + "');");
-
-                // Finished with the connection, so close it.
-                connection.closeConnection();
-            }
-            // else an error occurred leave 'member' to null.
-
-
-        return result;
-    }
-     */
 
     public boolean createAtlete(String email, String firstName, String lastName) {
         boolean result = false;
@@ -96,7 +76,7 @@ public class AtleteDAO {
             // Finished with the connection, so close it.
             connection.closeConnection();
         }
-        
+
         return result;
     }
 
