@@ -6,19 +6,22 @@ package getyourolyweight.domain;
 public class Skill {
     private Skill skill;
     private String skillID;
-    private String exercise1, exercise2, exercise3, exercise4, exercise5, exercise6;
+    private String exerciseS1, exerciseS2, exerciseS3, exerciseC1, exerciseC2, exerciseC3;
 
-    public Skill(Skill skill, String skillID, String exercise1, String exercise2, String exercise3, String exercise4, String exercise5, String exercise6) {
+    public Skill(Skill skill, String skillID, String exerciseS1, String exerciseS2, String exerciseS3, String exerciseC1, String exerciseC2, String exerciseC3) {
         this.skill = skill;
         this.skillID = skillID;
-        this.exercise1 = exercise1;
-        this.exercise2 = exercise2;
-        this.exercise3 = exercise3;
-        this.exercise4 = exercise4;
-        this.exercise5 = exercise5;
-        this.exercise6 = exercise6;
+        this.exerciseS1 = exerciseS1;
+        this.exerciseS2 = exerciseS2;
+        this.exerciseS3 = exerciseS3;
+        this.exerciseC1 = exerciseC1;
+        this.exerciseC2 = exerciseC2;
+        this.exerciseC3 = exerciseC3;
 
 
+    }
+
+    public Skill(String skillIDFromDb, String exerciseIDFromDb, String exerciseNameFromDb, String skillNameFromDb) {
     }
 
     public Skill getSkill() {return skill;}
@@ -32,40 +35,40 @@ public class Skill {
         this.skillID = skillID;
     }
 
-    public String getExercise1() {
-        return exercise1;
+    public String getExerciseS1() {
+        return exerciseS1;
     }
-    public void setExercise1(String exercise1) {this.exercise1 = exercise1;
-    }
-
-    public String getExercise2() {
-        return exercise2;
-    }
-    public void setExercise2(String exercise2) {this.exercise2 = exercise2;
+    public void setExerciseS1(String exerciseS1) {this.exerciseS1 = exerciseS1;
     }
 
-    public String getExercise3() {
-        return exercise3;
+    public String getExerciseS2() {
+        return exerciseS2;
     }
-    public void setExercise3(String exercise3) {this.exercise3 = exercise3;
-    }
-
-    public String getExercise4() {
-        return exercise4;
-    }
-    public void setExercise4(String exercise4) {this.exercise4 = exercise4;
+    public void setExerciseS2(String exerciseS2) {this.exerciseS2 = exerciseS2;
     }
 
-    public String getExercise5() {
-        return exercise5;
+    public String getExerciseS3() {
+        return exerciseS3;
     }
-    public void setExercise5(String exercise5) {this.exercise5 = exercise5;
+    public void setExerciseS3(String exerciseS3) {this.exerciseS3 = exerciseS3;
     }
 
-    public String getExercise6() {
-        return exercise6;
+    public String getExerciseC1() {
+        return exerciseC1;
     }
-    public void setExercise6(String exercise6) {this.exercise6 = exercise6;
+    public void setExerciseC1(String exerciseC1) {this.exerciseC1 = exerciseC1;
+    }
+
+    public String getExerciseC2() {
+        return exerciseC2;
+    }
+    public void setExerciseC2(String exerciseC2) {this.exerciseC2 = exerciseC2;
+    }
+
+    public String getExerciseC3() {
+        return exerciseC3;
+    }
+    public void setExerciseC3(String exerciseC3) {this.exerciseC3 = exerciseC3;
     }
 
 

@@ -59,7 +59,7 @@ public class WeightLiftManager {
         }
         return schedule;
     }
-
+/*
     public Skill findExerciseSnatch(String skillSnatch) {
         Skill skill = skills.get(skillSnatch);
         JOptionPane.showMessageDialog(null, skillSnatch);
@@ -71,6 +71,7 @@ public class WeightLiftManager {
         }
         return skill;
     }
+    */
 
 
 

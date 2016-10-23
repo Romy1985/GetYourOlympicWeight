@@ -1,8 +1,8 @@
 package getyourolyweight.datastorage;
 
-import getyourolyweight.domain.Schedule;
 import getyourolyweight.domain.Skill;
 
+import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -17,6 +17,7 @@ public class SkillDAO {
     //Query for snatch exercises
     public Skill findExerciseSnatch(String skillSnatch) {
         Skill skill = null;
+        JOptionPane.showMessageDialog(null, "hoi");
 
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();
@@ -24,10 +25,10 @@ public class SkillDAO {
             // If a connection was successfully setup, execute the SELECT statement.
             ResultSet resultset = connection.executeSQLSelectStatement(
                     "SELECT exercise.ExerciseName FROM skill INNER JOIN exercise ON skill.SkillID = exercise.SkillID WHERE skill.SkillName = '" + skillSnatch + "' ;");
-            System.out.println("SELECT exercise.ExerciseName FROM skill INNER JOIN exercise ON skill.SkillID = exercise.SkillID WHERE skill.SkillName = '" + skillSnatch + "' ;");
+            JOptionPane.showMessageDialog(null, resultset);
 
 
-          /*  if (resultset != null) {
+            if (resultset != null) {
                 try {
                     // The skillSnatch for the exercises is unique, so in case the
                     // resultset does contain data, we need its first entry.
@@ -38,10 +39,9 @@ public class SkillDAO {
                         String skillNameFromDb = resultset.getString("SkillName");
 
                         //Dit werkt niet???
-                          skill = new Skill(
-                                exerciseIDFromDb,
+                          skill = new Skill(skillIDFromDb,
+                                  exerciseIDFromDb,
                                 exerciseNameFromDb,
-                                skillIDFromDb,
                                 skillNameFromDb);
 
                     }
@@ -49,7 +49,7 @@ public class SkillDAO {
                     System.out.println(e);
                     skill = null;
                 }
-            } */
+            }
             // else an error occurred leave 'skill' to null.
 
             // We had a database connection opened. Since we're finished,
@@ -60,6 +60,7 @@ public class SkillDAO {
         return skill;
 
     }
+
 
     //Query for clean&jerk exercises
     public Skill findExerciseCleanJerk(String skillCleanJerk) {
