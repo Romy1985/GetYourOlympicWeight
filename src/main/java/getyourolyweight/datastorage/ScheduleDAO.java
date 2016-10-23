@@ -16,7 +16,7 @@ public class ScheduleDAO {
 
     }
 
-
+    //INSERT query for new schedules
     public boolean insertSchedule(String email, int backSquat, int snatchGoalWeight, String snatchGoalDate) {
         boolean result = false;
 
@@ -88,7 +88,7 @@ public class ScheduleDAO {
      * @param email
      * @return progress
      */
-    public Schedule findProgress(String email) {
+    public Schedule findProgressSnatch(String email) {
         Schedule progress = null;
 
         // First open a database connnection

@@ -27,6 +27,7 @@ public class WeightLiftManager {
         skills = new HashMap<>();
     }
 
+    //Manager to findAtlete in class AtleteDAO
     public Atlete findAtlete(String email) {
         Atlete atlete = atletes.get(email);
 
@@ -38,28 +39,35 @@ public class WeightLiftManager {
              return atlete;
     }
 
+    //Manager to doFindProgressSnatch in class ScheduleDAO
+    public Schedule findProgressSnatch(String email) {
+        Schedule progress = schedules.get(email);
+
+        if (progress == null) {
+            ScheduleDAO scheduleDAO = new ScheduleDAO();
+            progress = scheduleDAO.findProgressSnatch(email);
+            schedules.put(email, progress);
+        }
+        return progress;
+    }
+
+    //Manager to createAtlete in class AtleteDAO
     public void createAtlete(String email, String firstName, String lastName) {
         AtleteDAO atleteDAO = new AtleteDAO();
         atleteDAO.createAtlete(email, firstName, lastName);
 
     }
 
+    //Manager to insertSchedule in class ScheduleDAO
     public void insertSchedule(String email, int backSquat, int snatchGoalWeight, String snatchGoalDate) {
         ScheduleDAO scheduleDAO = new ScheduleDAO();
         scheduleDAO.insertSchedule(email, backSquat, snatchGoalWeight, snatchGoalDate);
     }
 
-    public Schedule makeSchedule(String email, int backSquat, int snatchGoalWeight) {
-        Schedule schedule = schedules.get(email);
 
-        if (schedule == null) {
-            ScheduleDAO scheduleDAO = new ScheduleDAO();
-           // schedule = scheduleDAO.makeSchedule(email, backSquat, snatchGoalWeight);
-            schedules.put(email, schedule);
-        }
-        return schedule;
-    }
-/*
+
+   /*
+    //Manager to findExerciseSnatch in class SkillDAO
     public Skill findExerciseSnatch(String skillSnatch) {
         Skill skill = skills.get(skillSnatch);
         JOptionPane.showMessageDialog(null, skillSnatch);

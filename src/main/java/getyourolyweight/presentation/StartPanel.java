@@ -797,7 +797,7 @@ public class StartPanel extends JPanel {
 
     public class ProgressDialogPanel extends JPanel {
         private JLabel emailProgressLabel, progressQuestionLabel;
-        private JTextField emailProgressInput, progressQuestionInput, commentInput;
+        private JTextField emailProgressInput, progressQuestionInput, commentInput, backSquatFromDb, frontSquatFromDb, snatchGoalFromDb, CJFromDb;
         private JButton progressButtonSnatch, progressButtonCleanjerk;
         private WeightLiftManager manager;
         private Progress currentProgress;
@@ -812,6 +812,13 @@ public class StartPanel extends JPanel {
             progressButtonSnatch.addActionListener(new ProgressSnatchHandler());
             progressButtonCleanjerk = new JButton("Progress Clean&Jerk");
             // progressButtonCleanJerk.addActionListener(new ProgressCleanjerkHandler());
+
+            //Textfields from db schedulesnatch
+            backSquatFromDb = new JTextField(30);
+            frontSquatFromDb = new JTextField(30);
+            snatchGoalFromDb = new JTextField(30);
+            CJFromDb = new JTextField(30);
+
             commentInput = new JTextField(100);
             commentInput.setBackground(null);
             commentInput.setBorder(null);
@@ -828,6 +835,12 @@ public class StartPanel extends JPanel {
             progressButtonCleanjerk.setBounds(500, 100, 200, 30);
             commentInput.setBounds(500, 150, 400, 30);
 
+            //layout textfields from db
+            backSquatFromDb.setBounds(20, 150, 100, 30);
+            snatchGoalFromDb.setBounds(125, 150, 100, 30);
+            frontSquatFromDb.setBounds(230, 150, 100, 30);
+            CJFromDb.setBounds(335, 150, 100, 30);
+
             add(emailProgressLabel);
             add(emailProgressInput);
             add(progressQuestionLabel);
@@ -835,6 +848,10 @@ public class StartPanel extends JPanel {
             add(progressButtonSnatch);
             add(progressButtonCleanjerk);
             add(commentInput);
+            add(backSquatFromDb);
+            add(snatchGoalFromDb);
+            add(frontSquatFromDb);
+            add(CJFromDb);
         }
 
         //HANDLERS of Progress
@@ -847,7 +864,7 @@ public class StartPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == progressButtonSnatch) {
                     String email = emailProgressInput.getText();
-                    doFindSnatchProgress(email);
+                    doFindProgressSnatch(email);
 
                     String weekNumber = progressQuestionInput.getText();
                     int resultWeek = Integer.parseInt(weekNumber);
@@ -882,8 +899,11 @@ public class StartPanel extends JPanel {
 
         }
 
-        private void doFindSnatchProgress(String email) {
-            // currentProgress = manager.findProgress(email);
+        private void doFindProgressSnatch(String email) {
+         //   currentProgress = manager.findProgressSnatch(email);
+         //   backSquatFromDb.setText(currentProgress.getBackSquat());
+         //   snatchGoalFromDb.setText(currentProgress.getSnatchGoalWeight());
+
         }
 
         /*
