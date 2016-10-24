@@ -96,7 +96,7 @@ public class ScheduleDAO {
         if (connection.openConnection()) {
             // If a connection was successfully setup, execute the SELECT statement.
             ResultSet resultset = connection.executeSQLSelectStatement(
-                    "SELECT BackSquat, SnatchGoalWeight FROM schedulesnatch WHERE Email = '" + email + "' AND SnatchGoalDate = (SELECT max(SnatchGoalDate) FROM schedulesnatch WHERE Email = '" + email + "') ;");
+                    "SELECT * FROM schedulesnatch WHERE Email = '" + email + "' AND SnatchGoalDate = (SELECT max(SnatchGoalDate) FROM schedulesnatch WHERE Email = '" + email + "') ;");
 
 
             if (resultset != null) {
@@ -104,10 +104,10 @@ public class ScheduleDAO {
                     // The email for a schedule is unique, so in case the
                     // resultset does contain data, we need its first entry.
                     if (resultset.next()) {
-                        String scheduleIDFromDb = resultset.getString("Schedule nr");
+                        String scheduleIDFromDb = resultset.getString("ScheduleSnatchID");
                         String emailFromDb = resultset.getString("Email");
                         int backSquatFromDb = resultset.getInt("Backsquat");
-                        int snatchGoalWeightFromDb = resultset.getInt("SnatchGialWeight");
+                        int snatchGoalWeightFromDb = resultset.getInt("SnatchGoalWeight");
                         String snatchGoalDateFromDb = resultset.getString("SnatchGoalDate");
 
                         progress = new Schedule(

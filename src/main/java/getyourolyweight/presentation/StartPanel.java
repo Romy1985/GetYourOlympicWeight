@@ -416,15 +416,15 @@ public class StartPanel extends JPanel {
 
                     public ScheduleDialogPanel() {
                         //fixed values for the reps, reps4 and rounds
-                        int reps = 5;
-                        int reps4 = 1;
-                        int rounds = 5;
+                        reps = 5;
+                        reps4 = 1;
+                        rounds = 5;
 
                         //fixed percentages for the counts per week
-                        int week1Count = 75;
-                        int week2Count = 85;
-                        int week3Count = 95;
-                        int week4Count = 100;
+                        week1Count = 75;
+                        week2Count = 85;
+                        week3Count = 95;
+                        week4Count = 100;
 
                         setLayout(null);
 
@@ -796,41 +796,215 @@ public class StartPanel extends JPanel {
     }
 
     public class ProgressDialogPanel extends JPanel {
-        private JLabel emailProgressLabel, progressQuestionLabel;
-        private JTextField emailProgressInput, progressQuestionInput, commentInput, backSquatFromDb, frontSquatFromDb, snatchGoalFromDb, CJFromDb;
+        private JLabel emailProgressLabel, progressQuestionLabel, week1, week2, week3, week4,
+        exerciseWeek1Label, roundsWeek1Label, repsWeek1Label, weightWeek1Label,
+        exerciseWeek2Label, roundsWeek2Label, repsWeek2Label, weightWeek2Label,
+        exerciseWeek3Label, roundsWeek3Label, repsWeek3Label, weightWeek3Label,
+        exerciseWeek4Label, roundsWeek4Label, repsWeek4Label, weightWeek4Label;
+        private JTextField emailProgressInput, progressQuestionInput, commentInput, backSquatFromDb, frontSquatFromDb, snatchGoalFromDb, CJFromDb,
+                exercise1Week1Input, exercise2Week1Input, exercise3Week1Input,
+                exercise1Week2Input, exercise2Week2Input, exercise3Week2Input,
+                exercise1Week3Input, exercise2Week3Input, exercise3Week3Input,
+                exercise1Week4Input, exercise2Week4Input, exercise3Week4Input,
+                rounds1Week1Input, rounds2Week1Input, rounds3Week1Input,
+                rounds1Week2Input, rounds2Week2Input, rounds3Week2Input,
+                rounds1Week3Input, rounds2Week3Input, rounds3Week3Input,
+                rounds1Week4Input, rounds2Week4Input, rounds3Week4Input,
+                reps1Week1Input, reps2Week1Input, reps3Week1Input,
+                reps1Week2Input, reps2Week2Input, reps3Week2Input,
+                reps1Week3Input, reps2Week3Input, reps3Week3Input,
+                reps1Week4Input, reps2Week4Input, reps3Week4Input,
+                weight1Week1Input, weight2Week1Input, weight3Week1Input,
+                weight1Week2Input, weight2Week2Input, weight3Week2Input,
+                weight1Week3Input, weight2Week3Input, weight3Week3Input,
+                weight1Week4Input, weight2Week4Input, weight3Week4Input;
+        private int reps, reps4, rounds, week1Count, week2Count, week3Count, week4Count;
         private JButton progressButtonSnatch, progressButtonCleanjerk;
-        private WeightLiftManager manager;
-        private Progress currentProgress;
+        private final WeightLiftManager manager;
+        private Schedule currentProgress;
 
         public ProgressDialogPanel(WeightLiftManager weightLiftManager) {
+            //fixed values for the reps, reps4 and rounds
+            reps = 5;
+            reps4 = 1;
+            rounds = 5;
+
+            //fixed percentages for the counts per week
+            week1Count = 75;
+            week2Count = 85;
+            week3Count = 95;
+            week4Count = 100;
+
             setLayout(null);
+
             emailProgressLabel = new JLabel("Emailaddress: ");
             emailProgressInput = new JTextField(60);
-            progressQuestionLabel = new JLabel("This weeknr I've done (1, 2, 3 or 4): ");
+            progressQuestionLabel = new JLabel("This weeknr I've done (0, 1, 2, 3 or 4): ");
             progressQuestionInput = new JTextField(10);
             progressButtonSnatch = new JButton("Progress Snatch");
             progressButtonSnatch.addActionListener(new ProgressSnatchHandler());
             progressButtonCleanjerk = new JButton("Progress Clean&Jerk");
             // progressButtonCleanJerk.addActionListener(new ProgressCleanjerkHandler());
-
-            //Textfields from db schedulesnatch
-            backSquatFromDb = new JTextField(30);
-            frontSquatFromDb = new JTextField(30);
-            snatchGoalFromDb = new JTextField(30);
-            CJFromDb = new JTextField(30);
-
             commentInput = new JTextField(100);
             commentInput.setBackground(null);
             commentInput.setBorder(null);
             commentInput.setVisible(false);
-            weightLiftManager = manager;
-            currentProgress = null;
+            manager = weightLiftManager;
+            currentProgress = null;//Textfields from db schedulesnatch
+            backSquatFromDb = new JTextField(30);
+            frontSquatFromDb = new JTextField(30);
+            snatchGoalFromDb = new JTextField(30);
+            CJFromDb = new JTextField(30);
+            //JLabels JTextfields week 1
+            week1 = new JLabel("Week 1");
+            week1.setForeground(Color.BLUE);
+            week1.setVisible(false);
+            exerciseWeek1Label = new JLabel("Exercise");
+            exerciseWeek1Label.setVisible(false);
+            exercise1Week1Input = new JTextField(60);
+            exercise1Week1Input.setVisible(true);
+            exercise2Week1Input = new JTextField(60);
+            exercise2Week1Input.setVisible(false);
+            exercise3Week1Input = new JTextField(60);
+            exercise3Week1Input.setVisible(false);
+            roundsWeek1Label = new JLabel("Rounds");
+            roundsWeek1Label.setVisible(false);
+            rounds1Week1Input = new JTextField(30);
+            rounds1Week1Input.setVisible(false);
+            rounds2Week1Input = new JTextField(30);
+            rounds2Week1Input.setVisible(false);
+            rounds3Week1Input = new JTextField(30);
+            rounds3Week1Input.setVisible(false);
+            repsWeek1Label = new JLabel("Reps");
+            repsWeek1Label.setVisible(false);
+            reps1Week1Input = new JTextField(30);
+            reps1Week1Input.setVisible(false);
+            reps2Week1Input = new JTextField(30);
+            reps2Week1Input.setVisible(false);
+            reps3Week1Input = new JTextField(30);
+            reps3Week1Input.setVisible(false);
+            weightWeek1Label = new JLabel("Weight");
+            weightWeek1Label.setVisible(false);
+            weight1Week1Input = new JTextField(30);
+            weight1Week1Input.setVisible(false);
+            weight2Week1Input = new JTextField(30);
+            weight2Week1Input.setVisible(false);
+            weight3Week1Input = new JTextField(30);
+            weight3Week1Input.setVisible(false);
+            //JLabels JTextfields week 2
+            week2 = new JLabel("Week 2");
+            week2.setForeground(Color.BLUE);
+            week2.setVisible(false);
+            exerciseWeek2Label = new JLabel("Exercise");
+            exerciseWeek2Label.setVisible(false);
+            exercise1Week2Input = new JTextField(60);
+            exercise1Week2Input.setVisible(true);
+            exercise2Week2Input = new JTextField(60);
+            exercise2Week2Input.setVisible(false);
+            exercise3Week2Input = new JTextField(60);
+            exercise3Week2Input.setVisible(false);
+            roundsWeek2Label = new JLabel("Rounds");
+            roundsWeek2Label.setVisible(false);
+            rounds1Week2Input = new JTextField(30);
+            rounds1Week2Input.setVisible(false);
+            rounds2Week2Input = new JTextField(30);
+            rounds2Week2Input.setVisible(false);
+            rounds3Week2Input = new JTextField(30);
+            rounds3Week2Input.setVisible(false);
+            repsWeek2Label = new JLabel("Reps");
+            repsWeek2Label.setVisible(false);
+            reps1Week2Input = new JTextField(30);
+            reps1Week2Input.setVisible(false);
+            reps2Week2Input = new JTextField(30);
+            reps2Week2Input.setVisible(false);
+            reps3Week2Input = new JTextField(30);
+            reps3Week2Input.setVisible(false);
+            weightWeek2Label = new JLabel("Weight");
+            weightWeek2Label.setVisible(false);
+            weight1Week2Input = new JTextField(30);
+            weight1Week2Input.setVisible(false);
+            weight2Week2Input = new JTextField(30);
+            weight2Week2Input.setVisible(false);
+            weight3Week2Input = new JTextField(30);
+            weight3Week2Input.setVisible(false);
+            //JLabels JTextfields week 3
+            week3 = new JLabel("Week 3");
+            week3.setForeground(Color.BLUE);
+            week3.setVisible(false);
+            exerciseWeek3Label = new JLabel("Exercise");
+            exerciseWeek3Label.setVisible(false);
+            exercise1Week3Input = new JTextField(60);
+            exercise1Week3Input.setVisible(true);
+            exercise2Week3Input = new JTextField(60);
+            exercise2Week3Input.setVisible(false);
+            exercise3Week3Input = new JTextField(60);
+            exercise3Week3Input.setVisible(false);
+            roundsWeek3Label = new JLabel("Rounds");
+            roundsWeek3Label.setVisible(false);
+            rounds1Week3Input = new JTextField(30);
+            rounds1Week3Input.setVisible(false);
+            rounds2Week3Input = new JTextField(30);
+            rounds2Week3Input.setVisible(false);
+            rounds3Week3Input = new JTextField(30);
+            rounds3Week3Input.setVisible(false);
+            repsWeek3Label = new JLabel("Reps");
+            repsWeek3Label.setVisible(false);
+            reps1Week3Input = new JTextField(30);
+            reps1Week3Input.setVisible(false);
+            reps2Week3Input = new JTextField(30);
+            reps2Week3Input.setVisible(false);
+            reps3Week3Input = new JTextField(30);
+            reps3Week3Input.setVisible(false);
+            weightWeek3Label = new JLabel("Weight");
+            weightWeek3Label.setVisible(false);
+            weight1Week3Input = new JTextField(30);
+            weight1Week3Input.setVisible(false);
+            weight2Week3Input = new JTextField(30);
+            weight2Week3Input.setVisible(false);
+            weight3Week3Input = new JTextField(30);
+            weight3Week3Input.setVisible(false);
+            //JLabels JTextfields week 4
+            week4 = new JLabel("Week 4");
+            week4.setForeground(Color.BLUE);
+            week4.setVisible(false);
+            exerciseWeek4Label = new JLabel("Exercise");
+            exerciseWeek4Label.setVisible(false);
+            exercise1Week4Input = new JTextField(60);
+            exercise1Week4Input.setVisible(true);
+            exercise2Week4Input = new JTextField(60);
+            exercise2Week4Input.setVisible(false);
+            exercise3Week4Input = new JTextField(60);
+            exercise3Week4Input.setVisible(false);
+            roundsWeek4Label = new JLabel("Rounds");
+            roundsWeek4Label.setVisible(false);
+            rounds1Week4Input = new JTextField(30);
+            rounds1Week4Input.setVisible(false);
+            rounds2Week4Input = new JTextField(30);
+            rounds2Week4Input.setVisible(false);
+            rounds3Week4Input = new JTextField(30);
+            rounds3Week4Input.setVisible(false);
+            repsWeek4Label = new JLabel("Reps");
+            repsWeek4Label.setVisible(false);
+            reps1Week4Input = new JTextField(30);
+            reps1Week4Input.setVisible(false);
+            reps2Week4Input = new JTextField(30);
+            reps2Week4Input.setVisible(false);
+            reps3Week4Input = new JTextField(30);
+            reps3Week4Input.setVisible(false);
+            weightWeek4Label = new JLabel("Weight");
+            weightWeek4Label.setVisible(false);
+            weight1Week4Input = new JTextField(30);
+            weight1Week4Input.setVisible(false);
+            weight2Week4Input = new JTextField(30);
+            weight2Week4Input.setVisible(false);
+            weight3Week4Input = new JTextField(30);
+            weight3Week4Input.setVisible(false);
 
             //layout Progress input information
             emailProgressLabel.setBounds(20, 50, 200, 30);
-            emailProgressInput.setBounds(250, 50, 200, 30);
-            progressQuestionLabel.setBounds(20, 100, 200, 30);
-            progressQuestionInput.setBounds(250, 100, 200, 30);
+            emailProgressInput.setBounds(270, 50, 200, 30);
+            progressQuestionLabel.setBounds(20, 100, 220, 30);
+            progressQuestionInput.setBounds(270, 100, 200, 30);
             progressButtonSnatch.setBounds(500, 50, 200, 30);
             progressButtonCleanjerk.setBounds(500, 100, 200, 30);
             commentInput.setBounds(500, 150, 400, 30);
@@ -852,6 +1026,74 @@ public class StartPanel extends JPanel {
             add(snatchGoalFromDb);
             add(frontSquatFromDb);
             add(CJFromDb);
+            add(week1);
+            add(exerciseWeek1Label);
+            add(exercise1Week1Input);
+            add(exercise2Week1Input);
+            add(exercise3Week1Input);
+            add(roundsWeek1Label);
+            add(rounds1Week1Input);
+            add(rounds2Week1Input);
+            add(rounds3Week1Input);
+            add(repsWeek1Label);
+            add(reps1Week1Input);
+            add(reps2Week1Input);
+            add(reps3Week1Input);
+            add(weightWeek1Label);
+            add(weight1Week1Input);
+            add(weight2Week1Input);
+            add(weight3Week1Input);
+            add(week2);
+            add(exerciseWeek2Label);
+            add(exercise1Week2Input);
+            add(exercise2Week2Input);
+            add(exercise3Week2Input);
+            add(roundsWeek2Label);
+            add(rounds1Week2Input);
+            add(rounds2Week2Input);
+            add(rounds3Week2Input);
+            add(repsWeek2Label);
+            add(reps1Week2Input);
+            add(reps2Week2Input);
+            add(reps3Week2Input);
+            add(weightWeek2Label);
+            add(weight1Week2Input);
+            add(weight2Week2Input);
+            add(weight3Week2Input);
+            add(week3);
+            add(exerciseWeek3Label);
+            add(exercise1Week3Input);
+            add(exercise2Week3Input);
+            add(exercise3Week3Input);
+            add(roundsWeek3Label);
+            add(rounds1Week3Input);
+            add(rounds2Week3Input);
+            add(rounds3Week3Input);
+            add(repsWeek3Label);
+            add(reps1Week3Input);
+            add(reps2Week3Input);
+            add(reps3Week3Input);
+            add(weightWeek3Label);
+            add(weight1Week3Input);
+            add(weight2Week3Input);
+            add(weight3Week3Input);
+            add(week4);
+            add(exerciseWeek4Label);
+            add(exercise1Week4Input);
+            add(exercise2Week4Input);
+            add(exercise3Week4Input);
+            add(roundsWeek4Label);
+            add(rounds1Week4Input);
+            add(rounds2Week4Input);
+            add(rounds3Week4Input);
+            add(repsWeek4Label);
+            add(reps1Week4Input);
+            add(reps2Week4Input);
+            add(reps3Week4Input);
+            add(weightWeek4Label);
+            add(weight1Week4Input);
+            add(weight2Week4Input);
+            add(weight3Week4Input);
         }
 
         //HANDLERS of Progress
@@ -869,10 +1111,185 @@ public class StartPanel extends JPanel {
                     String weekNumber = progressQuestionInput.getText();
                     int resultWeek = Integer.parseInt(weekNumber);
 
+                    if (resultWeek == 0) {
+                        //Step 1: schedule 1, 2, 3 and 4 shows
+                        commentInput.setText("You're starting this schedule. Good luck");
+                        commentInput.setVisible(true);
+                        week1.setVisible(true);
+                        week1.setBounds(25, 200, 200, 30);
+                        exerciseWeek1Label.setVisible(true);
+                        exerciseWeek1Label.setBounds(25, 240, 100, 30);
+                        exercise1Week1Input.setVisible(true);
+                        exercise1Week1Input.setBounds(25, 270, 100, 30);
+                        exercise2Week1Input.setVisible(true);
+                        exercise2Week1Input.setBounds(25, 300, 100, 30);
+                        exercise3Week1Input.setVisible(true);
+                        exercise3Week1Input.setBounds(25, 330, 100, 30);
+                        roundsWeek1Label.setVisible(true);
+                        roundsWeek1Label.setBounds(125, 240, 100, 30);
+                        rounds1Week1Input.setVisible(true);
+                        rounds1Week1Input.setBounds(125, 270, 100, 30);
+                        rounds2Week1Input.setVisible(true);
+                        rounds2Week1Input.setBounds(125, 300, 100, 30);
+                        rounds3Week1Input.setVisible(true);
+                        rounds3Week1Input.setBounds(125, 330, 100, 30);
+                        repsWeek1Label.setVisible(true);
+                        repsWeek1Label.setBounds(225, 240, 100, 30);
+                        reps1Week1Input.setVisible(true);
+                        reps1Week1Input.setBounds(225, 270, 100, 30);
+                        reps2Week1Input.setVisible(true);
+                        reps2Week1Input.setBounds(225, 300, 100, 30);
+                        reps3Week1Input.setVisible(true);
+                        reps3Week1Input.setBounds(225, 330, 100, 30);
+                        weightWeek1Label.setVisible(true);
+                        weightWeek1Label.setBounds(325, 240, 100, 30);
+                        weight1Week1Input.setVisible(true);
+                        weight1Week1Input.setBounds(325, 270, 100, 30);
+                        weight2Week1Input.setVisible(true);
+                        weight2Week1Input.setBounds(325, 300, 100, 30);
+                        weight3Week1Input.setVisible(true);
+                        weight3Week1Input.setBounds(325, 330, 100, 30);
+                        week2.setVisible(true);
+                        week2.setBounds(475, 200, 100, 30);
+                        exerciseWeek2Label.setVisible(true);
+                        exerciseWeek2Label.setBounds(475, 240, 100, 30);
+                        exercise1Week2Input.setVisible(true);
+                        exercise1Week2Input.setBounds(475, 270, 100, 30);
+                        exercise2Week2Input.setVisible(true);
+                        exercise2Week2Input.setBounds(475, 300, 100, 30);
+                        exercise3Week2Input.setVisible(true);
+                        exercise3Week2Input.setBounds(475, 330, 100, 30);
+                        roundsWeek2Label.setVisible(true);
+                        roundsWeek2Label.setBounds(575, 240, 100, 30);
+                        rounds1Week2Input.setVisible(true);
+                        rounds1Week2Input.setBounds(575, 270, 100, 30);
+                        rounds2Week2Input.setVisible(true);
+                        rounds2Week2Input.setBounds(575, 300, 100, 30);
+                        rounds3Week2Input.setVisible(true);
+                        rounds3Week2Input.setBounds(575, 330, 100, 30);
+                        repsWeek2Label.setVisible(true);
+                        repsWeek2Label.setBounds(675, 240, 100, 30);
+                        reps1Week2Input.setVisible(true);
+                        reps1Week2Input.setBounds(675, 270, 100, 30);
+                        reps2Week2Input.setVisible(true);
+                        reps2Week2Input.setBounds(675, 300, 100, 30);
+                        reps3Week2Input.setVisible(true);
+                        reps3Week2Input.setBounds(675, 330, 100, 30);
+                        weightWeek2Label.setVisible(true);
+                        weightWeek2Label.setBounds(775, 240, 100, 30);
+                        weight1Week2Input.setVisible(true);
+                        weight1Week2Input.setBounds(775, 270, 100, 30);
+                        weight2Week2Input.setVisible(true);
+                        weight2Week2Input.setBounds(775, 300, 100, 30);
+                        weight3Week2Input.setVisible(true);
+                        weight3Week2Input.setBounds(775, 330, 100, 30);
+                        week3.setVisible(true);
+                        week3.setBounds(25, 370, 100, 30);
+                        exerciseWeek3Label.setVisible(true);
+                        exerciseWeek3Label.setBounds(25, 400, 100, 30);
+                        exercise1Week3Input.setVisible(true);
+                        exercise1Week3Input.setBounds(25, 430, 100, 30);
+                        exercise2Week3Input.setVisible(true);
+                        exercise2Week3Input.setBounds(25, 460, 100, 30);
+                        exercise3Week3Input.setVisible(true);
+                        exercise3Week3Input.setBounds(25, 490, 100, 30);
+                        roundsWeek3Label.setVisible(true);
+                        roundsWeek3Label.setBounds(125, 400, 100, 30);
+                        rounds1Week3Input.setVisible(true);
+                        rounds1Week3Input.setBounds(125, 430, 100, 30);
+                        rounds2Week3Input.setVisible(true);
+                        rounds2Week3Input.setBounds(125, 460, 100, 30);
+                        rounds3Week3Input.setVisible(true);
+                        rounds3Week3Input.setBounds(125, 490, 100, 30);
+                        repsWeek3Label.setVisible(true);
+                        repsWeek3Label.setBounds(225, 400, 100, 30);
+                        reps1Week3Input.setVisible(true);
+                        reps1Week3Input.setBounds(225, 430, 100, 30);
+                        reps2Week3Input.setVisible(true);
+                        reps2Week3Input.setBounds(225, 460, 100, 30);
+                        reps3Week3Input.setVisible(true);
+                        reps3Week3Input.setBounds(225, 490, 100, 30);
+                        weightWeek3Label.setVisible(true);
+                        weightWeek3Label.setBounds(325, 400, 100, 30);
+                        weight1Week3Input.setVisible(true);
+                        weight1Week3Input.setBounds(325, 430, 100, 30);
+                        weight2Week3Input.setVisible(true);
+                        weight2Week3Input.setBounds(325, 460, 100, 30);
+                        weight3Week3Input.setVisible(true);
+                        weight3Week3Input.setBounds(325, 490, 100, 30);
+                        week4.setVisible(true);
+                        week4.setBounds(475, 370, 100, 30);
+                        exerciseWeek4Label.setVisible(true);
+                        exerciseWeek4Label.setBounds(475, 400, 100, 30);
+                        exercise1Week4Input.setVisible(true);
+                        exercise1Week4Input.setBounds(475, 430, 100, 30);
+                        exercise2Week4Input.setVisible(true);
+                        exercise2Week4Input.setBounds(475, 460, 100, 30);
+                        exercise3Week4Input.setVisible(true);
+                        exercise3Week4Input.setBounds(475, 490, 100, 30);
+                        roundsWeek4Label.setVisible(true);
+                        roundsWeek4Label.setBounds(575, 400, 100, 30);
+                        rounds1Week4Input.setVisible(true);
+                        rounds1Week4Input.setBounds(575, 430, 100, 30);
+                        rounds2Week4Input.setVisible(true);
+                        rounds2Week4Input.setBounds(575, 460, 100, 30);
+                        rounds3Week4Input.setVisible(true);
+                        rounds3Week4Input.setBounds(575, 490, 100, 30);
+                        repsWeek4Label.setVisible(true);
+                        repsWeek4Label.setBounds(675, 400, 100, 30);
+                        reps1Week4Input.setVisible(true);
+                        reps1Week4Input.setBounds(675, 430, 100, 30);
+                        reps2Week4Input.setVisible(true);
+                        reps2Week4Input.setBounds(675, 460, 100, 30);
+                        reps3Week4Input.setVisible(true);
+                        reps3Week4Input.setBounds(675, 490, 100, 30);
+                        weightWeek4Label.setVisible(true);
+                        weightWeek4Label.setBounds(775, 400, 100, 30);
+                        weight1Week4Input.setVisible(true);
+                        weight1Week4Input.setBounds(775, 430, 100, 30);
+                        weight2Week4Input.setVisible(true);
+                        weight2Week4Input.setBounds(775, 460, 100, 30);
+                        weight3Week4Input.setVisible(true);
+                        weight3Week4Input.setBounds(775, 490, 100, 30);
+
+                        //Step 2:
+                        //Fill the textfields reps and rounds. The reps and rounds are fixed values
+                        reps1Week1Input.setText("" + reps);
+                        rounds1Week1Input.setText("" + rounds);
+                        reps2Week1Input.setText("" + reps);
+                        rounds2Week1Input.setText("" + rounds);
+                        reps3Week1Input.setText("" + reps);
+                        rounds3Week1Input.setText("" + rounds);
+                        reps1Week2Input.setText("" + reps);
+                        rounds1Week2Input.setText("" + rounds);
+                        reps2Week2Input.setText("" + reps);
+                        rounds2Week2Input.setText("" + rounds);
+                        reps3Week2Input.setText("" + reps);
+                        rounds3Week2Input.setText("" + rounds);
+                        reps1Week3Input.setText("" + reps);
+                        rounds1Week3Input.setText("" + rounds);
+                        reps2Week3Input.setText("" + reps);
+                        rounds2Week3Input.setText("" + rounds);
+                        reps3Week3Input.setText("" + reps);
+                        rounds3Week3Input.setText("" + rounds);
+                        reps1Week4Input.setText("" + reps4);
+                        rounds1Week4Input.setText("" + rounds);
+                        reps2Week4Input.setText("" + reps4);
+                        rounds2Week4Input.setText("" + rounds);
+                        reps3Week4Input.setText("" + reps4);
+                        rounds3Week4Input.setText("" + rounds);
+                    }
+
                     if (resultWeek == 1) {
                         //schedule 2, 3, and 4 shows
                         commentInput.setText("You did week: " + resultWeek + ". Good luck with week 2, 3 and 4");
                         commentInput.setVisible(true);
+                        week2.setVisible(true);
+                        week2.setBounds(25, 200, 100, 30);
+                        week3.setVisible(true);
+                        week3.setBounds(475, 200, 100, 30);
+                        week4.setVisible(true);
+                        week4.setBounds(25, 370, 100, 30);
 
                         }
 
@@ -880,29 +1297,31 @@ public class StartPanel extends JPanel {
                         //schedule 4 and 4 shows
                         commentInput.setText("You did week: " + resultWeek + ". Great work, good luck with week 3 and 4");
                         commentInput.setVisible(true);
+                        week3.setVisible(true);
+                        week3.setBounds(25, 200, 100, 30);
+                        week4.setVisible(true);
+                        week4.setBounds(475, 200, 100, 30);
                     }
                     if (resultWeek == 3) {
                         //schedule 4 shows
                         commentInput.setText("You did week: " + resultWeek + ". Great work, good luck with week 4");
                         commentInput.setVisible(true);
+                        week4.setVisible(true);
+                        week4.setBounds(25, 200, 100, 30);
                     }
                     if (resultWeek == 4) {
                         commentInput.setText("Well done, you've finshed week: " + resultWeek + ". You're ready with this schedule");
                         commentInput.setVisible(true);
                     }
-
-
-
-
                 }
             }
 
         }
 
         private void doFindProgressSnatch(String email) {
-         //   currentProgress = manager.findProgressSnatch(email);
-         //   backSquatFromDb.setText(currentProgress.getBackSquat());
-         //   snatchGoalFromDb.setText(currentProgress.getSnatchGoalWeight());
+            currentProgress = manager.findProgressSnatch(email);
+            backSquatFromDb.setText("" + currentProgress.getBackSquat());
+            snatchGoalFromDb.setText("" + currentProgress.getSnatchGoalWeight());
 
         }
 
