@@ -212,13 +212,31 @@ public class StartPanel extends JPanel {
              */
 
             public class SnatchDialog extends JDialog {
+                private JPanel panelSnatch = new JPanel();
+                private JLabel img = new JLabel();
                 //Open snatch dialog
                 public SnatchDialog() {
-                    setTitle("Snatch");
-                    setSize(900, 750);
-                    setLocationRelativeTo(null);
-                    setContentPane(new SnatchDialogPanel(new WeightLiftManager()));
-                    setModal(true);
+                    JDialog snatchForm = new JDialog();
+                    snatchForm.setTitle("Snatch");
+                    snatchForm.setSize(900, 750);
+                    snatchForm.setLocationRelativeTo(null);
+                    snatchForm.setContentPane(new SnatchDialogPanel(new WeightLiftManager()));
+                    snatchForm.setModal(true);
+
+                    //background image
+                    ImageIcon icon1 = new ImageIcon("C:/Users/r.ceuleers/Documents/Avans 2016-2017/Blok 1 - Aan de slag met Java/Praktijkopdracht/GetYourOlyWeight/src/main/resources/images/warmupsnatch3.jpg");
+                    img = new JLabel(icon1);
+                    img.setBounds(0, 0, 900, 700);
+                    img.setVisible(true);
+
+                    panelSnatch.setBounds(0, 0, 900, 750);
+                    panelSnatch.add(img);
+                    panelSnatch.setVisible(true);
+                    panelSnatch.repaint();
+
+                    snatchForm.add(panelSnatch);
+                    snatchForm.setVisible(true);
+                    snatchForm.repaint();
                 }
             }
 
@@ -233,11 +251,17 @@ public class StartPanel extends JPanel {
                 public SnatchDialogPanel(WeightLiftManager weightLiftManager) {
                     setLayout(null);
                     emailLabel = new JLabel("Emailaddress: ");
+                    emailLabel.setForeground(Color.WHITE);
                     firstNameLabel = new JLabel("Firstname: ");
+                    firstNameLabel.setForeground(Color.WHITE);
                     lastNameLabel = new JLabel("Lastname: ");
+                    lastNameLabel.setForeground(Color.WHITE);
                     backSquatLabel = new JLabel("Backsquat (1RM): ");
+                    backSquatLabel.setForeground(Color.WHITE);
                     snatchGoalLabel = new JLabel("Snatch goal weight: ");
+                    snatchGoalLabel.setForeground(Color.WHITE);
                     snatchDateLabel = new JLabel("Snatch goal date (yyyy-mm-dd): ");
+                    snatchDateLabel.setForeground(Color.WHITE);
                     emailInput = new JTextField(30);
                     firstNameInput = new JTextField(30);
                     lastNameInput = new JTextField(30);
@@ -339,13 +363,19 @@ public class StartPanel extends JPanel {
                                 }
                                 catch (NumberFormatException nfe) {
                                     if (snatchGoalWeight.equals(""))
-                                        snatchGoalWeight = "Empty input";
-                                    snatchGoalInput.setText("No valid entry: " + snatchGoalWeight);
+                                        snatchGoalWeight = "Snatch goal weight is required";
+                                    JOptionPane.showMessageDialog(SnatchDialogPanel.this,
+                                            "No valid entry: " + snatchGoalWeight,
+                                            "Error message",
+                                            JOptionPane.ERROR_MESSAGE);
                                 }
                             } catch (NumberFormatException nfe) {
                                 if (backSquat.equals(""))
-                                    backSquat = "Empty input";
-                                backSquatInput.setText("No valid entry: " + backSquat);
+                                    backSquat = "Backsquat is required";
+                                JOptionPane.showMessageDialog(SnatchDialogPanel.this,
+                                        "No valid entry: " + backSquat,
+                                        "Error message",
+                                        JOptionPane.ERROR_MESSAGE);
                             }
                         }
                     }
@@ -1711,8 +1741,11 @@ public class StartPanel extends JPanel {
                         }
                     } catch (NumberFormatException nfe) {
                         if (weekNumber.equals(""))
-                            weekNumber = "empty input";
-                        progressQuestionInput.setText("No valid entry: " + weekNumber);
+                            weekNumber = "Weeknumber is required";
+                        JOptionPane.showMessageDialog(ProgressDialogPanel.this,
+                                "No valid entry: " + weekNumber,
+                                "Error message",
+                                JOptionPane.ERROR_MESSAGE);
 
                     }
                 }
