@@ -166,7 +166,7 @@ public class StartPanel extends JPanel {
         class BackHandler implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    dispose();
+                    //dispose();
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }

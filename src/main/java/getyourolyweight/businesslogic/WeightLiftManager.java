@@ -9,8 +9,6 @@ import getyourolyweight.domain.Schedule;
 import getyourolyweight.domain.ScheduleCleanJerk;
 import getyourolyweight.domain.Skill;
 
-
-import javax.swing.*;
 import java.util.HashMap;
 import java.util.Map;
 
