@@ -2,8 +2,6 @@ package getyourolyweight.presentation; /**
  * Created by r.ceuleers on 25-9-2016.
  */
 
-import com.sun.deploy.panel.AdvancedNetworkSettingsDialog;
-import com.sun.javaws.progress.Progress;
 import getyourolyweight.businesslogic.WeightLiftManager;
 import getyourolyweight.domain.Atlete;
 import getyourolyweight.domain.Schedule;
@@ -14,8 +12,6 @@ import javax.swing.ImageIcon;
 import java.awt.*;
 import java.awt.Font;
 import java.awt.event.*;
-
-import static com.sun.deploy.uitoolkit.ToolkitStore.dispose;
 
 /**
  * Startpanel contains all the panels and dialogs of the GUI
@@ -1066,8 +1062,8 @@ public class StartPanel extends JPanel {
                             Dialog scheduleDialog = new ScheduleDialog();
                             scheduleDialog.setVisible(true);
                             //Get exercises -- werkt niet
-                            //String skillSnatch = skillInput.getText();
-                            //doFindExerciseSnatch(skillSnatch);
+                            //String skillCleanJerk = skillInput.getText();
+                            //doFindExerciseCleanJerk(skillCleanJerk);
 
                         }
                     }
@@ -3209,8 +3205,8 @@ public class StartPanel extends JPanel {
                     add(firstNameInput);
                     add(lastNameLabel);
                     add(lastNameInput);
-                    add(atleteScheduleIDLabel);
-                    add(atleteScheduleIDInput);
+                  //  add(atleteScheduleIDLabel);
+                  //  add(atleteScheduleIDInput);
                     add(emailSearchButton);
                     add(createButton);
                     add(newAtleteEmailLabel);
@@ -3240,7 +3236,7 @@ public class StartPanel extends JPanel {
                     currentAtlete = manager.findAtlete(email);
                     firstNameInput.setText(currentAtlete.getFirtName());
                     lastNameInput.setText(currentAtlete.getLastName());
-                    atleteScheduleIDInput.setText(currentAtlete.getScheduleID());
+                   // atleteScheduleIDInput.setText(currentAtlete.getScheduleID());
                     String atleteInfo = "Atleet niet gevonden";
                 }
 
