@@ -1,6 +1,5 @@
 package getyourolyweight.domain;
 
-import sun.util.calendar.LocalGregorianCalendar;
 
 /**
  * Created by r.ceuleers on 2-10-2016.

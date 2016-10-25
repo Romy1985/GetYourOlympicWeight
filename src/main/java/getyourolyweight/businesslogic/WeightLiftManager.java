@@ -1,10 +1,12 @@
 package getyourolyweight.businesslogic;
 
 import getyourolyweight.datastorage.AtleteDAO;
+import getyourolyweight.datastorage.ScheduleCleanJerkDAO;
 import getyourolyweight.datastorage.ScheduleDAO;
 import getyourolyweight.datastorage.SkillDAO;
 import getyourolyweight.domain.Atlete;
 import getyourolyweight.domain.Schedule;
+import getyourolyweight.domain.ScheduleCleanJerk;
 import getyourolyweight.domain.Skill;
 
 
@@ -18,6 +20,7 @@ import java.util.Map;
 public class WeightLiftManager {
     private Map<String, Atlete> atletes;
     private Map<String, Schedule> schedules;
+    private Map<String, ScheduleCleanJerk> schedulesCleanJerk;
     private Map<String, Skill> skills;
 
 
@@ -25,6 +28,7 @@ public class WeightLiftManager {
         atletes = new HashMap<>();
         schedules = new HashMap<>();
         skills = new HashMap<>();
+        schedulesCleanJerk = new HashMap<>();
     }
 
     //Manager to findAtlete in class AtleteDAO
@@ -51,6 +55,18 @@ public class WeightLiftManager {
         return progress;
     }
 
+    //Manager to doFindProgressCleanJerk in class ScheduleCleanJerkDAO
+    public ScheduleCleanJerk findProgressCleanJerk(String email) {
+        ScheduleCleanJerk progress = schedulesCleanJerk.get(email);
+
+        if (progress == null) {
+            ScheduleCleanJerkDAO scheduleCleanJerkDAO = new ScheduleCleanJerkDAO();
+            progress = scheduleCleanJerkDAO.findProgressCleanJerk(email);
+            schedulesCleanJerk.put(email, progress);
+        }
+        return progress;
+    }
+
     //Manager to createAtlete in class AtleteDAO
     public void createAtlete(String email, String firstName, String lastName) {
         AtleteDAO atleteDAO = new AtleteDAO();
@@ -58,32 +74,17 @@ public class WeightLiftManager {
 
     }
 
-    //Manager to insertSchedule in class ScheduleDAO
+    //Manager to insertSchedule for snatch in class ScheduleDAO
     public void insertSchedule(String email, int backSquat, int snatchGoalWeight, String snatchGoalDate) {
         ScheduleDAO scheduleDAO = new ScheduleDAO();
         scheduleDAO.insertSchedule(email, backSquat, snatchGoalWeight, snatchGoalDate);
     }
 
-
-
-   /*
-    //Manager to findExerciseSnatch in class SkillDAO
-    public Skill findExerciseSnatch(String skillSnatch) {
-        Skill skill = skills.get(skillSnatch);
-        JOptionPane.showMessageDialog(null, skillSnatch);
-
-        if (skill == null ) {
-            SkillDAO skillDAO = new SkillDAO();
-            skill = skillDAO.findExerciseSnatch(skillSnatch);
-            skills.put(skillSnatch, skill);
-        }
-        return skill;
+    //Manager to insertSchedule for clean and jerk in class ScheduleDAO
+    public void insertScheduleCleanJerk(String email, int frontSquat, int cleanJerkGoalWeight, String cleanJerkGoalDate) {
+        ScheduleCleanJerkDAO scheduleCleanjerkDAO = new ScheduleCleanJerkDAO();
+        scheduleCleanjerkDAO.insertScheduleCleanJerk(email, frontSquat, cleanJerkGoalWeight, cleanJerkGoalDate);
     }
-    */
-
-
-
-
 
 }
 
