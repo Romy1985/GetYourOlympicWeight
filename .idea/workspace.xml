@@ -22,7 +22,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="StartPanel.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="StartPanel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/getyourolyweight/presentation/StartPanel.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="289">
@@ -30,6 +30,16 @@
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="18" column="35" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -132,7 +142,6 @@
         <option value="$PROJECT_DIR$/src/Domain/Skill.java" />
         <option value="$PROJECT_DIR$/src/Domain/Schedule.java" />
         <option value="$PROJECT_DIR$/src/Presentation/WeightLiftUI.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/main/java/getyourolyweight/presentation/AtleteDialogPanel.java" />
         <option value="$PROJECT_DIR$/src/main/java/getyourolyweight/presentation/Main.java" />
@@ -150,6 +159,7 @@
         <option value="$PROJECT_DIR$/src/main/java/getyourolyweight/businesslogic/WeightLiftManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/getyourolyweight/datastorage/ScheduleCleanJerkDAO.java" />
         <option value="$PROJECT_DIR$/src/main/java/getyourolyweight/presentation/StartPanel.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>
@@ -701,7 +711,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -934,14 +944,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1003">
-          <caret line="59" column="57" selection-start-line="59" selection-start-column="57" selection-end-line="59" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/images/snatch.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -1122,6 +1124,14 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="35" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -52,7 +52,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.2.1</version>
                 <configuration>
-                    <mainClass>edu.avans.library.main.Main</mainClass>
+                    <mainClass>getyourolyweight.presentation.Main</mainClass>
                 </configuration>
             </plugin>
             <plugin>
